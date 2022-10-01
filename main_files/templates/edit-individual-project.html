@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}
+   edit projects details
+{% endblock %}
+
+{% block content %}
+<div class="all-project-details">
+    <div class="all-project-details-logos">
+        <p>
+            <a href="{{url_for('home_page')}}">Home</a> <span> > </span>
+            <a href="{{url_for('projects_page')}}">Projects</a> <span> > </span>
+            <a href="{{url_for('edit_projects', project_id=indy_project.project_id)}}">Projects Details</a>
+        </p>
+    </div>
+    <div class="project-details-items">
+        <div class="all-titles">
+            <h6>Project Details</h6>
+            
+        </div>
+        <div class="all-project-details-expands">
+            <form method="POST" class="informations">
+                {{ form.hidden_tag() }}
+                <div class="expand-eachs">
+                    <p>*Project Name</p>{{ form.project_name(class="pname", type="text", id="project_name") }}
+                </div>
+                <br>
+                <div class="expand-eachs">
+                    <p>*Start Date</p>{{ form.start_date(class="sdate", type="date", id="start_date") }}
+                </div>
+                <br>
+                <div class="expand-eachs">
+                    <p>*Target End Date</p>{{ form.target_end_date(class="sdate", type="date", id="Target-date") }}
+                </div>
+                <br>
+                <div class="expand-eachs">
+                    <p>*Actual End Date</p>{{ form2.actual_end_date(class="sdate", type="date", id="Actual-date") }}
+                </div>
+                <div class="buttons-to-create">
+                    {{ form2.Apply_Changes(type="submit", id="submit") }}
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

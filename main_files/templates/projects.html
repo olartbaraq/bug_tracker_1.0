@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% block title %}
+    projects
+{% endblock %}
+
+{% block content %}
+<div class="project-items">
+
+    <div class="project-logo">
+        <p>
+            <a href="{{url_for('home_page')}}">Home</a> <span> > </span>
+            <a href="{{url_for('projects_page')}}">Projects</a>
+        </p>
+    </div>
+
+    <div class="add-search-projects">
+        <div class="search-projects">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="search" class="project-to-search" name="searched" placeholder="Search" aria-label="Search" >
+            <h6>Rows</h6>
+            <select style="width: 70px" id="Mobility" name="Mobility">
+                <option selected disabled>Select</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
+                <option>10</option>
+                <option>11</option>
+                <option>12</option>
+                <option>13</option>
+                <option>14</option>
+                <option>15</option>
+            </select>
+            <button class="search-submit" type="submit" name="searched">Search</button>
+        </div>
+        <div class="add-projects">
+            <a href="{{url_for('project_details_page')}}"><button class="search-submit" type="submit" name="searched"> Add Project</button></a>
+        </div>
+    </div>
+    <div class="projects-table">
+        <table class="table table-hover table-dark">
+            <thead>
+              <tr>
+                <th scope"col"></th>
+                <th scope"col">Project Name</th>
+                <th scope"col">Start Date</th>
+                <th scope"col">Target End Date</th>
+                <th scope"col">Actual End Date</th>
+                <th scope"col"></th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for project in all_projects %}
+                
+              <tr>
+                <td><a href="{{url_for('edit_projects', project_id=project.project_id)}}"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                <td>{{ project.project_name }}</td>
+                <td>{{ project.start_only_date }}</td>
+                <td>{{ project.only_date }}</td>
+                <td>{{ project.actual_date }}</td>
+                <td><a method="DELETE" href="{{url_for('delete_project', project_id=project.project_id)}}"><i class="fa-solid fa-trash"></i></a></td>
+              </tr>
+              {% endfor %}
+              
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

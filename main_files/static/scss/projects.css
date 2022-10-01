@@ -1,0 +1,57 @@
+.project-items {
+  margin-top: 30px;
+}
+
+.project-logo {
+  margin-left: 30px;
+}
+
+.project-logo a {
+  color: rgb(29, 28, 28);
+}
+
+.add-search-projects {
+  margin-top: 20px;
+  width: 600px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.search-projects {
+  width: 400px;
+  height: 50px;
+  border: solid, 10px, lightcyan;
+  background-color: rgb(29, 28, 28);
+  color: rgb(240, 236, 236);
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.add-projects button {
+  width: 100px;
+  height: 30px;
+  border: solid, 10px, lightcyan;
+  background-color: rgb(29, 28, 28);
+  color: rgb(240, 236, 236);
+  border-radius: 10px;
+}
+
+.projects-table {
+  margin: 50px;
+  padding: 10px;
+}
+
+.projects-table table, thead, tr {
+  width: 90%;
+  border: 1px solid black;
+  border-radius: 5px;
+  color: rgb(240, 236, 236);
+  background-color: rgb(29, 28, 28);
+}
+
+td a {
+  color: rgb(240, 236, 236);
+}/*# sourceMappingURL=projects.css.map */

@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}
+    projects details
+{% endblock %}
+
+{% block content %}
+<div class="project-deatils">
+    <div class="project-details-logo">
+        <p>
+            <a href="{{url_for('home_page')}}">Home</a> <span> > </span>
+            <a href="{{url_for('projects_page')}}">Projects</a> <span> > </span>
+            <a href="{{url_for('project_details_page')}}">Projects Details</a>
+        </p>
+    </div>
+    <div class="project-details-items">
+        <div class="title">
+            <h6>Project Details</h6>
+            
+        </div>
+        <div class="project-details-expand">
+            <form method="POST"  class="information">
+                {{ form.hidden_tag() }}
+                <div class="expand-each">
+                    <p>*Project Name</p>{{ form.project_name(class="pname", type="text", id="project_name") }}
+                </div>
+                <br>
+                <div class="expand-each">
+                    <p>*Start Date</p>{{ form.start_date(class="sdate", type="date", id="start_date") }}
+                </div>
+                <br>
+                <div class="expand-each">
+                    <p>*Target End Date</p>{{ form.target_end_date(class="sdate", type="date", id="Target-date") }}
+                </div>
+                <br>
+                <div class="buttons-to-create">
+                    <button type="reset" id="reset" name="reset">Cancel</button>
+                    {{ form.create(type="submit", id="submit") }}
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
