@@ -34,14 +34,15 @@
 
 .project-details-expand {
   margin-left: 50px;
+  margin-top: 50px;
 }
 
 .project-details-expand {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  height: 300px;
-  width: 300px;
+  justify-content: flex-start;
+  height: 550px;
+  width: 600px;
 }
 
 .project-details-expand .expand-each {
@@ -70,4 +71,9 @@
 
 .expand-each .sdate {
   margin-left: 40px;
+}
+
+.expand-each .description {
+  margin-left: 20px;
+  width: 200px;
 }/*# sourceMappingURL=project-details.css.map */

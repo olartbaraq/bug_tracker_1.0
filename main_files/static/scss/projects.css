@@ -12,14 +12,14 @@
 
 .add-search-projects {
   margin-top: 20px;
-  width: 600px;
+  width: 550px;
   display: flex;
   justify-content: space-around;
   align-items: center;
 }
 
 .search-projects {
-  width: 400px;
+  width: 300px;
   height: 50px;
   border: solid, 10px, lightcyan;
   background-color: rgb(29, 28, 28);

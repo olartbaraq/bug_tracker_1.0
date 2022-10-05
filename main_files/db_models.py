@@ -14,6 +14,7 @@ class Project(db.Model):
     """
     project_id = db.Column(db.Integer(), primary_key=True)
     project_name = db.Column(db.String(255), unique=True, nullable=False)
+    project_description = db.Column(db.String(3000), nullable=False)
     start_date = db.Column(db.DateTime, nullable=False)
     target_end_date = db.Column(db.DateTime, nullable=False)
     actual_end_date = db.Column(db.DateTime, nullable=True)
@@ -46,6 +47,20 @@ class Project(db.Model):
             datetime_element = self.actual_end_date
             date_element = datetime_element.strftime("%d/%m/%Y")
             return date_element
+
+    @property
+    def create_date(self):
+        """ """
+        datetime_element = self.date_created
+        date_element = datetime_element.strftime("%d/%m/%Y")
+        return date_element
+
+    @property
+    def modify_date(self):
+        """ """
+        datetime_element = self.date_modified_on
+        date_element = datetime_element.strftime("%d/%m/%Y")
+        return date_element
 
 
 class User(db.Model):

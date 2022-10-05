@@ -4,20 +4,21 @@
 {% endblock %}
 
 {% block content %}
-<div class="all-project-details">
-    <div class="all-project-details-logos">
+
+<div class="edit-details-details">
+    <div class="edit-details-logos">
         <p>
             <a href="{{url_for('home_page')}}">Home</a> <span> > </span>
             <a href="{{url_for('projects_page')}}">Projects</a> <span> > </span>
             <a href="{{url_for('edit_projects', project_id=indy_project.project_id)}}">Projects Details</a>
         </p>
     </div>
-    <div class="project-details-items">
-        <div class="all-titles">
+    <div class="edit-details-items">
+        <div class="edit-titles">
             <h6>Project Details</h6>
             
         </div>
-        <div class="all-project-details-expands">
+        <div class="edit-details-expands">
             <form method="POST" class="informations">
                 {{ form.hidden_tag() }}
                 <div class="expand-eachs">
@@ -40,6 +41,15 @@
                 </div>
             </form>
         </div>
+        <div class='audit-information'>
+                <div class='created_on'>
+                    <p> CREATED ON <span> - </span> {{ indy_project.create_date }}</p>
+                    <p> CREATED BY <span> - </span> {{ indy_project.record_created_by }}</p>
+                    <p> MODIFIED ON <span> - </span> {{ indy_project.modify_date }}</p>
+                    <p> MODIFIED BY <span> - </span> {{ indy_project.record_modified_by }}</p>
+                </div>
+        </div>
+
     </div>
 </div>
 {% endblock %}
