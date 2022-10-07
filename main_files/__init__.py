@@ -19,7 +19,7 @@ from flask_login import LoginManager
 app = Flask(__name__)
 
 # this set the database used to the in-built sqlite3
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///bugtracker2.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///bugtracker3.db'
 
 # this is necessary to be set in order for wtforms
 # with http methods to function

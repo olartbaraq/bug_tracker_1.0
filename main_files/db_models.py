@@ -23,6 +23,7 @@ class Project(db.Model):
     record_created_by = db.Column(db.String(100), nullable=False, default='admin')
     record_modified_by = db.Column(db.String(100), nullable=False, default='admin')
     project_issues = db.relationship('Issues', backref='issue_project', lazy=True)
+    project_users = db.relationship('User', backref='user_project', lazy=True)
 
     @property
     def only_date(self):
@@ -72,13 +73,11 @@ class User(db.Model):
     email = db.Column(db.String(50), nullable=False, unique=True)
     phone = db.Column(db.String(14), nullable=False, unique=True)
     username = db.Column(db.String(50), nullable=False, unique=True)
-    assigned_project = db.Column(db.Integer(), nullable=True)
-    # user_role = db.Column(db.string(30), nullable=False)
-    password_hash = db.Column(db.String(60), nullable=False)
+    assigned_project = db.Column(db.Integer(), db.ForeignKey('project.project_id'))
     date_created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow())
     date_modified_on = db.Column(db.DateTime, nullable=False, default=datetime.utcnow())
-    record_created_by = db.Column(db.String(100), nullable=False)
-    record_modified_by = db.Column(db.String(100), nullable=False)
+    record_created_by = db.Column(db.String(100), nullable=False, default='admin')
+    record_modified_by = db.Column(db.String(100), nullable=False, default='admin')
     user_roles = db.relationship('Role', backref='role_user', lazy=True)
     
 
@@ -87,7 +86,8 @@ class Role(db.Model):
     """class that defines the fields which roles users are 
     assigned to in the database """
     id = db.Column(db.Integer(), primary_key=True)
-    role = db.Column(db.Integer(), db.ForeignKey('user.user_id'), nullable=False)
+    role = db.Column(db.String(10), nullable=False)
+    user = db.Column(db.Integer(), db.ForeignKey('user.user_id'))
     
 
 class Issues(db.Model):
@@ -109,5 +109,5 @@ class Issues(db.Model):
     resolution_summary = db.Column(db.String(4000), nullable=False)
     date_created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow())
     date_modified_on = db.Column(db.DateTime, nullable=False, default=datetime.utcnow())
-    record_created_by = db.Column(db.String(100), nullable=False)
-    record_modified_by = db.Column(db.String(100), nullable=False)
+    record_created_by = db.Column(db.String(100), nullable=False, default='admin')
+    record_modified_by = db.Column(db.String(100), nullable=False, default='admin')
