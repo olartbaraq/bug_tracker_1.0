@@ -59,7 +59,7 @@
                 <th scope"col">Person Name</th>
                 <th scope"col">Person Email</th>
                 <th scope"col">Person Role</th>
-                <th scope"col">username</th>
+                <th scope"col">Username</th>
                 <th scope"col">Assigned Project</th>
                 <th scope"col"></th>
               </tr>
@@ -71,7 +71,7 @@
                         <td><a href="#"><i class="fa-solid fa-pen-to-square"></i></a></td>
                         <td>{{ items.firstname }} {{  items.lastname }}</td>
                         <td>{{ items.email }}</td>
-                        <td>{{ items.role }}</td>
+                        <td>{{ items.user_roles }}</td>
                         <td>{{ items.username}}</td>
                         <td>{{ items.assigned_project }}</td>
                         <td><a method="DELETE" href="#"><i class="fa-solid fa-trash"></i></a></td>
@@ -79,15 +79,17 @@
                     {% endfor %}
                 {% else %}
                     {% for user in all_users %}
+                    
                     <tr>
                         <td><a href="#"><i class="fa-solid fa-pen-to-square"></i></a></td>
                         <td>{{ user.firstname }} {{  user.lastname }}</td>
                         <td>{{ user.email }}</td>
-                        <td>{{ user.role }}</td>
+                        <td>{{ user.user_roles }}</td>
                         <td>{{ user.username}}</td>
                         <td>{{ user.assigned_project }}</td>
                         <td><a method="DELETE" href="#"><i class="fa-solid fa-trash"></i></a></td>
                     </tr>
+                    
                     {% endfor %}
                 {% endif %}
             </tbody>

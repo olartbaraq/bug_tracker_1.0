@@ -45,8 +45,8 @@
                 <div class="expand-each">
                     <p>*Role</p> 
                     <span>
-                        <label for="CEO">
-                            <input type="radio" id="CEO" name="role_taken" value="CEO" required>CEO
+                        <label for="CTO">
+                            <input type="radio" id="CTO" name="role_taken" value="CTO" required>CTO
                         </label>
                         <label for="Manager">
                             <input type="radio" id="Manager" name="role_taken" value="Manager" required>Manager
@@ -60,8 +60,13 @@
                     </span>
                 </div>
                 <div class="expand-each">
-                    <p>*Assigned Project</p> <span>
+                    <p>*Assigned Project</p> <span style="width: 200px;">
                         {{ form.assigned_project}}
+                        <ul>
+                            {% for error in form.assigned_project.errors %}
+                            <li style="color:red;"> {{ error }}</li>
+                            {% endfor %}
+                        </ul>
                     </span>
                 </div>
                 <div class="buttons-to-create">

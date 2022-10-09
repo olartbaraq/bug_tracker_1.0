@@ -11,6 +11,8 @@ from main_files.db_models import db
 from flask import render_template, url_for, redirect, request, flash,jsonify
 from flask_login import login_user, logout_user, login_required, current_user
 from main_files.forms_input import Project_Details, Edit_Project_Details, SearchForm, User_Details, SearchForm2, Role_Details
+from sqlalchemy import text
+
 
 @app.route('/')
 @app.route('/home')
@@ -137,27 +139,28 @@ def base_user():
     return dict(form=form3)
 
 
-@app.route('/users')
+@app.route('/users', methods=['GET', 'POST'])
 def users_page():
     """a route to return the all users"""
     form3 = SearchForm2()
     all_users = User.query.order_by(User.date_created.desc()).limit(20)
+    all_roles = Role.query.order_by(Role.id).all()
     searched_users = User.query
-
+      
     if form3.validate_on_submit():
         ad_search = form3.searched.data
         searched_users = searched_users.filter(User.assigned_project.like('%' + ad_search + '%'))
         searched_users = searched_users.order_by(User.username).all()
         flash("your search returned listed users on the project", category='info')
         return render_template('users.html', all_users=all_users, form3=form3, searched=ad_search, searched_users=searched_users)
-    return render_template('users.html', all_users=all_users, form3=form3)
+    return render_template('users.html', all_users=all_users, all_roles=all_roles, form3=form3)
 
 
 @app.route('/User-Details', methods=['GET', 'POST'])
 def user_info_page():
     """a route to return the website users details"""
     form = User_Details()
-    form.assigned_project.choices = [(project.project_id, project.project_name) for project in Project.query.order_by(Project.project_name).all()]
+    # form.assigned_project.choices = [(project.project_id, project.project_name) for project in Project.query.order_by(Project.project_name).all()]
     if request.method == 'POST':
         if form.validate_on_submit():
             user_answer = request.form['role_taken']
@@ -165,12 +168,13 @@ def user_info_page():
                                     lastname=form.lastname.data,
                                     email=form.email.data,
                                     username=form.username.data,
-                                    phone=form.phone.data)
-                                    # assigned_project=form.assigned_project.choices)
-            # print(form.assigned_project.choices)
+                                    phone=form.phone.data,
+                                    assigned_project=form.assigned_project.data.__repr__(),
+                                    user_roles=user_answer)
 
-            role_to_create = Role(role=user_answer,
-                                  user=user_to_create.username)
+            role_to_create = Role(assigned_role=user_answer,
+                                  user_role=user_to_create.username,
+                                  assigned_project_to_user=user_to_create.assigned_project)
             db.session.add_all([user_to_create, role_to_create])
             db.session.commit()
             flash("User added Sucessfully", category='info')

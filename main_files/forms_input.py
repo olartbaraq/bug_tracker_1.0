@@ -7,6 +7,7 @@ from wtforms.validators import Length, DataRequired, ValidationError
 from main_files.db_models import User, Project
 
 
+
 class Project_Details(FlaskForm):
     project_name = StringField(label="Project Name", validators=[Length(min=2, max=255), DataRequired()])
     start_date = DateField(label='Start Date', validators=[DataRequired()])
@@ -52,17 +53,27 @@ class User_Details(FlaskForm):
         """checks if phone is already existed """
         user_username = User.query.filter_by(username=username_to_check.data).first()
         if user_username:
-            raise ValidationError('Usernamme already exists!')
+            raise ValidationError('Username already exists!')
+
+    def validate_roles(self, roles_assigned, assigned_project):
+        """ check if roles are not asigned to CTO and Manager"""
+        user_role = User.query.filter_by(user_roles='Manager').first()
+        project_check = User.query.filter_by(assigned_project=assigned_project.data)
+        if user_role:
+            if project_check:
+                raise ValidationError('CTO and Manager cannot be assigned projects!')
 
     def assigned_project_query():
         return Project.query
+
+    
 
     firstname = StringField(label="First Name", validators=[Length(min=2, max=255), DataRequired()])
     lastname = StringField(label="Last Name", validators=[Length(min=2, max=255), DataRequired()])
     email = StringField(label="Email", validators=[Length(min=2, max=50), DataRequired()])
     username = StringField(label="Username", validators=[Length(min=2, max=20), DataRequired()])
     phone = StringField(label="Phone", validators=[Length(min=11, max=14), DataRequired()])
-    assigned_project = QuerySelectField(query_factory=assigned_project_query, allow_blank=True, validators=[DataRequired()])
+    assigned_project = QuerySelectField(query_factory=assigned_project_query, allow_blank=True, get_label='project_name')
     create = SubmitField()
 
 class SearchForm2(FlaskForm):
