@@ -163,16 +163,16 @@ def user_info_page():
     # form.assigned_project.choices = [(project.project_id, project.project_name) for project in Project.query.order_by(Project.project_name).all()]
     if request.method == 'POST':
         if form.validate_on_submit():
-            user_answer = request.form['role_taken']
+            # user_answer = request.form['role_taken']
             user_to_create = User(firstname=form.firstname.data,
                                     lastname=form.lastname.data,
                                     email=form.email.data,
                                     username=form.username.data,
                                     phone=form.phone.data,
                                     assigned_project=form.assigned_project.data.__repr__(),
-                                    user_roles=user_answer)
+                                    user_roles=form.user_roles.data)
 
-            role_to_create = Role(assigned_role=user_answer,
+            role_to_create = Role(assigned_role=user_to_create.user_roles,
                                   user_role=user_to_create.username,
                                   assigned_project_to_user=user_to_create.assigned_project)
             db.session.add_all([user_to_create, role_to_create])

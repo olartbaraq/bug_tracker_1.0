@@ -20,6 +20,9 @@
             
         </div>
         <div class="user-info-expand">
+            <!-- {% for field, errors in form.errors.items() %}
+            {{ ', '.join(errors) }}
+            {% endfor %} -->
             <form method="POST"  class="information">
                 {{ form.hidden_tag() }}
                 <div class="expand-each">
@@ -43,21 +46,7 @@
                 </div>
                 <br>
                 <div class="expand-each">
-                    <p>*Role</p> 
-                    <span>
-                        <label for="CTO">
-                            <input type="radio" id="CTO" name="role_taken" value="CTO" required>CTO
-                        </label>
-                        <label for="Manager">
-                            <input type="radio" id="Manager" name="role_taken" value="Manager" required>Manager
-                        </label>
-                        <label for="Lead">
-                            <input type="radio" id="Lead" name="role_taken" value="Lead" required>Lead
-                        </label>
-                        <label for="Member">
-                            <input type="radio" id="Member" name="role_taken" value="Member" required>Member
-                        </label>
-                    </span>
+                    <p>*Role</p> {{ form.user_roles }}
                 </div>
                 <div class="expand-each">
                     <p>*Assigned Project</p> <span style="width: 200px;">
@@ -80,3 +69,15 @@
 {% endblock %}
 
 
+<!-- <label for="CTO">
+    <input type="radio" id="CTO" name="role_taken" value="CTO" required>CTO
+</label>
+<label for="Manager">
+    <input type="radio" id="Manager" name="role_taken" value="Manager" required>Manager
+</label>
+<label for="Lead">
+    <input type="radio" id="Lead" name="role_taken" value="Lead" required>Lead
+</label>
+<label for="Member">
+    <input type="radio" id="Member" name="role_taken" value="Member" required>Member
+</label> -->
