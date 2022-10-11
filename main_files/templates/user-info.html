@@ -49,14 +49,8 @@
                     <p>*Role</p> {{ form.user_roles }}
                 </div>
                 <div class="expand-each">
-                    <p>*Assigned Project</p> <span style="width: 200px;">
-                        {{ form.assigned_project}}
-                        <ul>
-                            {% for error in form.assigned_project.errors %}
-                            <li style="color:red;"> {{ error }}</li>
-                            {% endfor %}
-                        </ul>
-                    </span>
+                    <p>*Assigned Project</p> {{ form.assigned_project }}
+                   
                 </div>
                 <div class="buttons-to-create">
                     <button type="reset" id="reset" name="reset">Cancel</button>
@@ -69,15 +63,27 @@
 {% endblock %}
 
 
-<!-- <label for="CTO">
-    <input type="radio" id="CTO" name="role_taken" value="CTO" required>CTO
-</label>
-<label for="Manager">
-    <input type="radio" id="Manager" name="role_taken" value="Manager" required>Manager
-</label>
-<label for="Lead">
-    <input type="radio" id="Lead" name="role_taken" value="Lead" required>Lead
-</label>
-<label for="Member">
-    <input type="radio" id="Member" name="role_taken" value="Member" required>Member
-</label> -->
+
+
+
+<!-- {{ form.assigned_project}}
+                        <ul>
+                            {% for error in form.assigned_project.errors %}
+                            <li style="color:red;"> {{ error }}</li>
+                            {% endfor %}
+                        </ul> -->
+
+                        <!-- <span>
+                            <label for="CTO">
+                                <input type="radio" id="CTO" name="role_taken" value="CTO" required>CTO
+                            </label>
+                            <label for="Manager">
+                                <input type="radio" id="Manager" name="role_taken" value="Manager" required>Manager
+                            </label>
+                            <label for="Lead">
+                                <input type="radio" id="Lead" name="role_taken" value="Lead" required>Lead
+                            </label>
+                            <label for="Member">
+                                <input type="radio" id="Member" name="role_taken" value="Member" required>Member
+                            </label>
+                        </span> -->

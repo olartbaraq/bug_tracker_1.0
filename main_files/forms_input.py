@@ -56,6 +56,26 @@ class User_Details(FlaskForm):
         if user_username:
             raise ValidationError('Username already exists!')
 
+
+    def validate_roles_for_higher_up(form, field):
+        """ check if roles are not asigned to CTO and Manager"""
+        roledatabase=['CTO', 'Manager']
+        form = User_Details()
+        for role in roledatabase:
+            if form.user_roles.data == role:
+                if form.assigned_project.data != None:
+                    raise ValidationError('CTO or Manager cannot be assigned project!')
+                    
+    def validate_roles_for_lower_up(form, field):
+        """ check if roles are not asigned to CTO and Manager"""
+        roledatabase=['Lead', 'Member']
+        form = User_Details()
+        for role in roledatabase:
+            if form.user_roles.data == role:
+                if form.assigned_project.data == None:
+                    raise ValidationError('Lead or Member must be assigned project!')
+    
+
     def assigned_project_query():
         return Project.query
 
@@ -66,16 +86,12 @@ class User_Details(FlaskForm):
     email = StringField(label="Email", validators=[Length(min=2, max=50), DataRequired()])
     username = StringField(label="Username", validators=[Length(min=2, max=20), DataRequired()])
     phone = StringField(label="Phone", validators=[Length(min=11, max=14, message='Phone number must be between 11 and 14 characters'), DataRequired()])
-    assigned_project = QuerySelectField(query_factory=assigned_project_query, allow_blank=True, get_label='project_name')
-    user_roles = RadioField(choices=[('CTO','CTO'),('Manager','Manager'),('Lead','Lead'),('Member','Member')])
+    assigned_project = QuerySelectField(query_factory=assigned_project_query, allow_blank=True, get_label='project_name', validators=[validate_roles_for_lower_up])
+    user_roles = RadioField(choices=[('CTO','CTO'),('Manager','Manager'),('Lead','Lead'),('Member','Member')],validators=[DataRequired(), validate_roles_for_higher_up])
     create = SubmitField()
 
-    def validate_roles(form, assigned_project, user_roles):
-        """ check if roles are not asigned to CTO and Manager"""
-        # self.assigned_project = assigned_project.data
-        # self.user_roles = user_roles.data
-        if user_roles.data is (user_roles[0] or user_roles[1]):
-            raise ValidationError('hdhdh')
+    
+    
 
 class SearchForm2(FlaskForm):
     """ """
