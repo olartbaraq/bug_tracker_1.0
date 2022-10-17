@@ -94,9 +94,7 @@ class User_Details(FlaskForm):
 class Edit_User_details(FlaskForm):
     """ """
     user_roles = RadioField(choices=[('CTO','CTO'),('Manager','Manager'),('Lead','Lead'),('Member','Member')], validators=[DataRequired(), User_Details.validate_roles_for_higher_up, User_Details.validate_roles_for_lower_up])
-    email = StringField(label="Email", validators=[Length(min=2, max=50), DataRequired(), User_Details.validate_email])
-    username = StringField(label="Username", validators=[Length(min=2, max=20), DataRequired(), User_Details.validate_username])
-    phone = StringField(label="Phone", validators=[Length(min=11, max=14, message='Phone number must be between 11 and 14 characters'), DataRequired(), User_Details.validate_phone])
+    assigned_project = QuerySelectField(query_factory=User_Details.assigned_project_query, allow_blank=True, get_label='project_name')
     save = SubmitField()
     
 

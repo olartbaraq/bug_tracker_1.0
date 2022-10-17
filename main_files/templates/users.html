@@ -15,28 +15,8 @@
 
     <div class="add-search-users">
         <div class="search-users">
-            
-            <!-- <h6>Rows</h6>
-            <select style="width: 70px" id="Mobility" name="Mobility">
-                <option selected disabled>Select</option>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-                <option>6</option>
-                <option>7</option>
-                <option>8</option>
-                <option>9</option>
-                <option>10</option>
-                <option>11</option>
-                <option>12</option>
-                <option>13</option>
-                <option>14</option>
-                <option>15</option>
-            </select> -->
             <form method="post" action="{{url_for('users_page')}}">
-                {{ form3.hidden_tag() }}
+                {{ form.hidden_tag() }}
                 <i class="fa-solid fa-magnifying-glass"></i>
                 <input type="search" class="user-to-search" name="searched" placeholder="Search" aria-label="Search">
                 <button class="search-submit" type="submit" name="searched">Go</button>
@@ -74,7 +54,7 @@
                         <td>{{ items.user_roles }}</td>
                         <td>{{ items.username}}</td>
                         <td>{{ items.assigned_project }}</td>
-                        <td><a method="DELETE" href="#"><i class="fa-solid fa-trash"></i></a></td>
+                        <td><a method="DELETE" href="{{ url_for('delete_user', user_id=items.user_id) }}"><i class="fa-solid fa-trash"></i></a></td>
                       </tr>
                     {% endfor %}
                 {% else %}
@@ -87,7 +67,7 @@
                         <td>{{ user.user_roles }}</td>
                         <td>{{ user.username}}</td>
                         <td>{{ user.assigned_project }}</td>
-                        <td><a method="DELETE" href="#"><i class="fa-solid fa-trash"></i></a></td>
+                        <td><a method="DELETE" href="{{ url_for('delete_user', user_id=user.user_id) }}"><i class="fa-solid fa-trash"></i></a></td>
                     </tr>
                     
                     {% endfor %}

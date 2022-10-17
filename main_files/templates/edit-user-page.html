@@ -79,22 +79,22 @@ footer {
                 </div>
                 <br>
                 <div class="expand-each">
-                    <p>*UserName</p>{{ form2.username(class="username", type="text", id="username") }}
+                    <p>*UserName</p>{{ form.username(class="username", type="text", id="username") }}
                 </div>
                 <br>
                 <div class="expand-each">
-                    <p>*Email Address</p>{{ form2.email(type="email", id="email") }}
+                    <p>*Email Address</p>{{ form.email(type="email", id="email") }}
                 </div>
                 <br>
                 <div class="expand-each">
-                    <p>*Phone Number</p>{{ form2.phone(type="number", placeholder="Phone(only digits)", id="phone") }}
+                    <p>*Phone Number</p>{{ form.phone(type="number", placeholder="Phone(only digits)", id="phone") }}
                 </div>
                 <br>
                 <div class="expand-each">
                     <p>*Role</p> {{ form2.user_roles }}
                 </div>
                 <div class="expand-each">
-                    <p>*Assigned Project</p> {{ form.assigned_project }}
+                    <p>*Assigned Project</p> {{ form2.assigned_project }}
                    
                 </div>
                 <div class="buttons-to-create">

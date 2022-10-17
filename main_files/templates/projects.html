@@ -36,7 +36,7 @@
                 <option>15</option>
             </select> -->
             <form method="post" action="{{url_for('projects_page')}}">
-                {{ form3.hidden_tag() }}
+                {{ form.hidden_tag() }}
                 <i class="fa-solid fa-magnifying-glass"></i>
                 <input type="search" class="project-to-search" name="searched" placeholder="Search" aria-label="Search" >
                 <button class="search-submit" type="submit" name="searched">Go</button>

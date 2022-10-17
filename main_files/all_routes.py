@@ -143,7 +143,6 @@ def users_page():
     """a route to return the all users"""
     form3 = SearchForm2()
     all_users = User.query.order_by(User.date_created.desc()).limit(20)
-    all_roles = Role.query.order_by(Role.id).all()
     searched_users = User.query
       
     if form3.validate_on_submit():
@@ -152,7 +151,7 @@ def users_page():
         searched_users = searched_users.order_by(User.username).all()
         flash("your search returned listed users on the project", category='info')
         return render_template('users.html', all_users=all_users, form3=form3, searched=ad_search, searched_users=searched_users)
-    return render_template('users.html', all_users=all_users, all_roles=all_roles, form3=form3)
+    return render_template('users.html', all_users=all_users, form3=form3)
 
 
 @app.route('/User-Details', methods=['GET', 'POST'])
@@ -196,10 +195,10 @@ def edit_user(user_id):
         if form2.validate_on_submit():
             each_user.lastname=form.lastname.data
             each_user.firstname=form.firstname.data
-            each_user.email=form2.email.data
-            each_user.username=form2.username.data
-            each_user.phone=form2.phone.data
-            each_user.assigned_project=form.assigned_project.data.__repr__()
+            each_user.email=form.email.data
+            each_user.username=form.username.data
+            each_user.phone=form.phone.data
+            each_user.assigned_project=form2.assigned_project.data.__repr__()
             each_user.user_roles=form2.user_roles.data
             db.session.add(each_user)
             db.session.commit()
@@ -211,10 +210,30 @@ def edit_user(user_id):
     
     form.lastname.data =  each_user.lastname
     form.firstname.data =  each_user.firstname
-    form2.email.data =  each_user.email
-    form2.username.data =  each_user.username
-    form2.phone.data =  each_user.phone
-    form.assigned_project.data =  each_user.assigned_project
+    form.email.data =  each_user.email
+    form.username.data =  each_user.username
+    form.phone.data =  each_user.phone
+    form2.assigned_project.data =  each_user.assigned_project
     form2.user_roles.data =  each_user.user_roles
 
     return render_template('edit-user-page.html', form=form, form2=form2, user_id=each_user.user_id, each_user=each_user)
+
+
+@app.route('/users/delete/<int:user_id>', methods=['GET', 'DELETE'])
+def delete_user(user_id):
+    """Delete a project"""
+    each_user = User.query.get_or_404(user_id)
+    try:
+        db.session.delete(each_user)
+        db.session.commit()
+        flash('Project Deleted successfully', category='info')
+        all_users = User.query.order_by(User.date_created)
+        return render_template('users.html', all_users=all_users, each_user=each_user)
+
+    except:
+        flash("whoops! There was a problem deleting the project from database")
+        all_users = User.query.order_by(User.date_created)
+        return render_template('users.html', all_users=all_users, each_user=each_user)
+
+    finally:
+        return render_template('users.html', all_users=all_users, each_user=each_user)
