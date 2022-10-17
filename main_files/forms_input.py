@@ -42,7 +42,7 @@ class User_Details(FlaskForm):
 
     # This function checks if the unique field phone number in the register form
     # to be filled by the user in the sign-up page of the website has
-    # already stored an existing phone ni=umber in the database
+    # already stored an existing phone number in the database
 
     def validate_phone(self, phone_to_check):
         """checks if phone is already existed """
@@ -58,7 +58,7 @@ class User_Details(FlaskForm):
 
 
     def validate_roles_for_higher_up(form, field):
-        """ check if roles are not asigned to CTO and Manager"""
+        """ check if roles are assigned to CTO and Manager"""
         roledatabase=['CTO', 'Manager']
         form = User_Details()
         for role in roledatabase:
@@ -67,7 +67,7 @@ class User_Details(FlaskForm):
                     raise ValidationError('CTO or Manager cannot be assigned project!')
                     
     def validate_roles_for_lower_up(form, field):
-        """ check if roles are not asigned to CTO and Manager"""
+        """ check if roles are not asigned to Lead and Member"""
         roledatabase=['Lead', 'Member']
         form = User_Details()
         for role in roledatabase:
@@ -90,16 +90,18 @@ class User_Details(FlaskForm):
     user_roles = RadioField(choices=[('CTO','CTO'),('Manager','Manager'),('Lead','Lead'),('Member','Member')],validators=[DataRequired(), validate_roles_for_higher_up])
     create = SubmitField()
 
-    
+
+class Edit_User_details(FlaskForm):
+    """ """
+    user_roles = RadioField(choices=[('CTO','CTO'),('Manager','Manager'),('Lead','Lead'),('Member','Member')], validators=[DataRequired(), User_Details.validate_roles_for_higher_up, User_Details.validate_roles_for_lower_up])
+    email = StringField(label="Email", validators=[Length(min=2, max=50), DataRequired(), User_Details.validate_email])
+    username = StringField(label="Username", validators=[Length(min=2, max=20), DataRequired(), User_Details.validate_username])
+    phone = StringField(label="Phone", validators=[Length(min=11, max=14, message='Phone number must be between 11 and 14 characters'), DataRequired(), User_Details.validate_phone])
+    save = SubmitField()
     
 
 class SearchForm2(FlaskForm):
     """ """
     searched = StringField(label="searched")
     Search = SubmitField(label="Search")
-
-
-class Role_Details(FlaskForm):
-    """form to hold the roles of each user"""
-    role = StringField(label="Role", validators=[Length(min=2, max=14), DataRequired()])
 

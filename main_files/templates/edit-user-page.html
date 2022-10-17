@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% block title %}
+    User Information
+{% endblock %}
+
+{% block content %}
+
+<style>
+    body {
+  width: 100vw;
+  height: 100vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  background: lightgrey;
+  font-family: sans-serif;
+  font-size: 14px;
+}
+
+.base-contain a {
+  color: white;
+}
+
+.base-contain {
+  height: 150px;
+  background-color: rgb(29, 28, 28);
+  color: rgb(240, 236, 236);
+}
+
+.base-name {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.home-sections {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  font-size: small;
+  margin-right: 100px;
+}
+
+footer {
+  position: relative;
+  top: 700px;
+  text-align: center;
+}
+</style>
+
+<div class="user-information">
+
+    <div class="user-info-logo">
+        <p>
+            <a href="{{url_for('home_page')}}">Home</a> <span> > </span>
+            <a href="{{url_for('users_page')}}">Users</a> <span> > </span>
+            <a href="{{url_for('edit_user', user_id=each_user.user_id) }}">Edit User Information</a>
+        </p>
+    </div>
+
+    <div class="user-info-items">
+        <div class="heading">
+            <h6>User Information</h6>
+            
+        </div>
+        <div class="user-info-expand">
+            {% for field, errors in form.errors.items() %}
+            {{ ', '.join(errors) }}
+            {% endfor %}
+            <form method="POST"  class="information">
+                {{ form.hidden_tag() }}
+                <div class="expand-each">
+                    <p>*LastName</p>{{ form.lastname(class="lastname", type="text", id="lastname") }}
+                </div>
+                <br>
+                <div class="expand-each">
+                    <p>*FirstName</p>{{ form.firstname(class="lastname", type="text", id="firstname") }}
+                </div>
+                <br>
+                <div class="expand-each">
+                    <p>*UserName</p>{{ form2.username(class="username", type="text", id="username") }}
+                </div>
+                <br>
+                <div class="expand-each">
+                    <p>*Email Address</p>{{ form2.email(type="email", id="email") }}
+                </div>
+                <br>
+                <div class="expand-each">
+                    <p>*Phone Number</p>{{ form2.phone(type="number", placeholder="Phone(only digits)", id="phone") }}
+                </div>
+                <br>
+                <div class="expand-each">
+                    <p>*Role</p> {{ form2.user_roles }}
+                </div>
+                <div class="expand-each">
+                    <p>*Assigned Project</p> {{ form.assigned_project }}
+                   
+                </div>
+                <div class="buttons-to-create">
+                    <button type="reset" id="reset" name="reset">Cancel</button>
+                    {{ form2.save(type="submit", id="submit") }}
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

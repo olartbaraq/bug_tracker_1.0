@@ -10,8 +10,7 @@ from main_files import app
 from main_files.db_models import db
 from flask import render_template, url_for, redirect, request, flash,jsonify
 from flask_login import login_user, logout_user, login_required, current_user
-from main_files.forms_input import Project_Details, Edit_Project_Details, SearchForm, User_Details, SearchForm2, Role_Details
-from sqlalchemy import text
+from main_files.forms_input import Project_Details, Edit_Project_Details, SearchForm, User_Details, SearchForm2, Edit_User_details
 
 
 @app.route('/')
@@ -185,12 +184,37 @@ def user_info_page():
     return render_template('user-info.html', form=form)
 
 
-# @app.route('/user-info/edit/<int:user_id>', methods=['GET', 'POST'])
-# def edit_projects(user_id):
-#     """a route to edit individual project page"""
+@app.route('/user-info/edit/<int:user_id>', methods=['GET', 'POST'])
+def edit_user(user_id):
+    """a route to edit individual project page"""
 
-#     each_user = User.query.get_or_404(user_id)
-#     form = Project_Details()
-#     form2 = Edit_Project_Details()
+    each_user = User.query.get_or_404(user_id)
+    form = User_Details()
+    form2 = Edit_User_details()
 
-#     render_template('edited-user.html', user_id=user_id)
+    if request.method == 'POST':
+        if form2.validate_on_submit():
+            each_user.lastname=form.lastname.data
+            each_user.firstname=form.firstname.data
+            each_user.email=form2.email.data
+            each_user.username=form2.username.data
+            each_user.phone=form2.phone.data
+            each_user.assigned_project=form.assigned_project.data.__repr__()
+            each_user.user_roles=form2.user_roles.data
+            db.session.add(each_user)
+            db.session.commit()
+            flash("User Updated Sucessfully", category='info')
+            return redirect(url_for('users_page'))
+    elif form.errors != {}:
+        for err_msg in form.errors.values():
+            flash("Error: {}".format(err_msg), category='danger')
+    
+    form.lastname.data =  each_user.lastname
+    form.firstname.data =  each_user.firstname
+    form2.email.data =  each_user.email
+    form2.username.data =  each_user.username
+    form2.phone.data =  each_user.phone
+    form.assigned_project.data =  each_user.assigned_project
+    form2.user_roles.data =  each_user.user_roles
+
+    return render_template('edit-user-page.html', form=form, form2=form2, user_id=each_user.user_id, each_user=each_user)
