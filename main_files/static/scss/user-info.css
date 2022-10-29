@@ -1,0 +1,28 @@
+.user-information {
+  margin: 20px;
+  padding: auto;
+}
+
+.buttons-to-create {
+  margin-top: 10px;
+}
+
+.user-info-expand {
+  margin-left: 40px;
+}
+
+.expand-each {
+  display: flex;
+  justify-content: space-between;
+  width: 350px;
+}
+
+.expand-each p {
+  width: 100px;
+}
+
+.expand-each-role {
+  display: flex;
+  justify-content: space-between;
+  width: 260px;
+}/*# sourceMappingURL=user-info.css.map */

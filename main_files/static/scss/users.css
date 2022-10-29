@@ -1,0 +1,20 @@
+.user-items {
+  margin: 20px;
+}
+
+.add-search-users {
+  display: flex;
+  width: 400px;
+  height: 100px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.add-users button {
+  width: 80px;
+  height: 30px;
+  border: solid, 10px, lightcyan;
+  background-color: rgb(29, 28, 28);
+  color: rgb(240, 236, 236);
+  border-radius: 10px;
+}/*# sourceMappingURL=users.css.map */
