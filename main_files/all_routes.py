@@ -10,7 +10,7 @@ from main_files import app
 from main_files.db_models import db
 from flask import render_template, url_for, redirect, request, flash,jsonify
 from flask_login import login_user, logout_user, login_required, current_user
-from main_files.forms_input import Project_Details, Edit_Project_Details, SearchForm, User_Details, SearchForm2, Edit_User_details
+from main_files.forms_input import Project_Details, Edit_Project_Details, SearchForm, SearchForm3, User_Details, SearchForm2, Edit_User_details, Issue_Details, Edit_Issue_Details
 
 
 @app.route('/')
@@ -119,12 +119,6 @@ def delete_project(project_id):
         # all_projects = Project.query.order_by(Project.date_created)
         return render_template('projects.html') # all_projects=all_projects)
 
-
-
-@app.route('/issues')
-def issues_page():
-    """a route to return the projects issues"""
-    return ('<h5> issues_page </h5>')
 
 @app.route('/reports')
 def reports_page():
@@ -237,3 +231,54 @@ def delete_user(user_id):
 
     finally:
         return render_template('users.html', all_users=all_users, each_user=each_user)
+
+
+@app.context_processor
+def base_issue():
+    form = SearchForm3()
+    return dict(form=form)
+
+
+@app.route('/issues', methods=['GET', 'POST'])
+def issues_page():
+    """ page to display all issues related to assigned project"""
+
+    form = SearchForm3()
+    all_issues = Issues.query.order_by(Issues.date_created.desc()).limit(20)
+    searched_issues = Issues.query
+      
+    if form.validate_on_submit():
+        ad_search = form.searched.data
+        searched_issues = searched_issues.filter(Issues.issue_summary.like('%' + ad_search + '%'))
+        searched_issues = searched_issues.order_by(Issues.status).all()
+        flash("your search returned listed issues by status", category='info')
+        return render_template('issues.html',  all_issues=all_issues, form=form, searched=ad_search, searched_issues=searched_issues)
+    return render_template('issues.html', all_issues=all_issues, form=form)
+
+
+@app.route('/Isssue-Details', methods=['GET', 'POST'])
+def issue_info_page():
+    """a route to return the website users details"""
+    form = Issue_Details()
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            issue_to_create = Issues(issue_summary=form.issue_summary.data,
+                                     issue_description=form.issue_description.data,
+                                     identified_by_person_id=form.identified_by.data.__repr__(),
+                                     identified_data=form.identified_date.data,
+                                     related_project=form.related_project.data.__repr__(),
+                                     assigned_to=form.assigned_to.data.__repr__(),
+                                     status=form.status.data,
+                                     priority=form.priority.data,
+                                     traget_resolution_date=form.target_resolution_date.data,
+                                     progress=form.progress_report.data,
+                                     actual_resolution_date=form.actual_resolution_date.data,
+                                     resolution_summary=form.resolution_summary.data)
+            db.session.add(issue_to_create)
+            db.session.commit()
+            flash("Issue added Sucessfully", category='info')
+            return redirect(url_for('issues_page')) 
+    if form.errors != {}:
+        for err_msg in form.errors.values():
+            flash("Error: {}".format(err_msg), category='danger')
+    return render_template('issue-details.html', form=form)

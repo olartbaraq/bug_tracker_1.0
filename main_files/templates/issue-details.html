@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% block title %}
+    Issues
+{% endblock %}
+
+{% block content %}
+<div class="user-items issue-details">
+    <div class="user-logo issue-logo">
+        <p>
+            <a href="{{url_for('home_page')}}">Home</a> <span> > </span>
+            <a href="{{url_for('issues_page')}}">Issues</a> <span> > </span>
+            <a href="{{url_for('issue_info_page')}}">Issue Details</a>
+        </p>
+    </div>
+    <div class="issue-identification">
+        <div class="issue-title">
+            <h6>Issue Identification</h6>
+        </div>
+
+        <div class="issue-details-expand">
+            <form method="POST"  class="information">
+                {{ form.hidden_tag() }}
+                <div class="expand-issue">
+                    <p>*Issue Summary</p>{{ form.issue_summary(type="text", id="issue_summary", maxlength="300") }}
+                </div>
+                <br>
+                <div class="expand-issue">
+                    <p>*Issue Description</p>{{ form.issue_description(type="text", id="issue_description", maxlength="2000") }}
+                </div>
+                <br>
+                <div class="expand-issue">
+                    <p>*Related Project</p>{{ form.related_project }}
+                </div>
+                <br>
+                <div class="expand-issue">
+                    <p>*Identified By</p>{{ form.identified_by }}
+                </div>
+                <br>
+                <div class="expand-issue">
+                    <p>*Identified Date</p>{{ form.identified_date }}
+                </div>
+                <br>
+                <div class="issue-title">
+                    <h6>Progress</h6>
+                </div>
+                <div class="expand-issue">
+                    <p>*Assigned To</p>{{ form.assigned_to }}
+                </div>
+                <br>
+                <div class="expand-issue">
+                    <p>*Status</p>{{ form.status }}
+                </div>
+                <br>
+                <div class="expand-issue">
+                    <p>*Priority</p>{{ form.priority }}
+                </div>
+                <br>
+                <div class="expand-issue">
+                    <p>*Target Resolution date</p>{{ form.target_resolution_date }}
+                </div>
+                <br>
+                <div class="expand-issue">
+                    <p>*Progress</p>{{ form.progress_report (type="text", id="issue_summary", maxlength="300")}}
+                </div>
+                <br>
+                <div class="issue-title">
+                    <h6>Resolution</h6>
+                </div>
+                <div class="expand-issue">
+                    <p>*Actual Resolution Date</p>{{ form.actual_resolution_date}}
+                </div>
+                <br>
+                <div class="expand-issue">
+                    <p>*Resolution Summary</p>{{ form.resolution_summary}}
+                </div>
+                <br>
+                <div class="buttons-to-create">
+                    <button type="reset" id="reset" name="reset">Cancel</button>
+                    {{ form.create(type="submit", id="submit") }}
+                </div>
+                <br>
+            </form>
+        </div>  
+    </div>
+</div>
+{% endblock %}

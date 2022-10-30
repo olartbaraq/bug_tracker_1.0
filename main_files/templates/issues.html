@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% block title %}
+    Issues
+{% endblock %}
+
+{% block content %}
+
+<div class="issue-items user-items">
+
+    <div class="user-logo issue-logo">
+        <p>
+            <a href="{{url_for('home_page')}}">Home</a> <span> > </span>
+            <a href="{{url_for('issues_page')}}">Issues</a>
+        </p>
+    </div>
+
+    <div class="add-search-issues add-search-users">
+        <div class="search-users search-issues">
+            <form method="post" action="{{url_for('issues_page')}}">
+                {{ form.hidden_tag() }}
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="search" class="user-to-search issue-to-search" name="searched" placeholder="Search" aria-label="Search">
+                <button class="search-submit" type="submit" name="searched"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <a href="{{url_for('issues_page')}}"><button type="button" class="m1-2 mb-1 close" aria-label="Close">
+                    <span arai-hidden="true">&times;</span>
+                </button></a>
+            </form>
+            
+        </div>
+        <div class="add-users add-issues">
+            <a href="{{url_for('issue_info_page')}}"><button class="search-submit" type="submit" name="searched"> Add Issue</button></a>
+        </div>
+    </div>
+
+    <div class="user-table issue-table">
+        <table class="table table-hover table-dark">
+            <thead>
+              <tr>
+                <th scope"col"></th>
+                <th scope"col">Issue Summary</th>
+                <th scope"col">Date Identified</th>
+                <th scope"col">Status</th>
+                <th scope"col">Priority</th>
+                <th scope"col">Target Resolution Date</th>
+                <th scope"col">Progress</th>
+                <th scope"col">Actual Resolution Date</th>
+                <th scope"col">Identified By</th>
+                <th scope"col">Project Name</th>
+                <th scope"col">Assigned to</th>
+                <th scope"col"></th>
+              </tr>
+            </thead>
+            <tbody>
+                {% if searched %}
+                    {% for items in searched_issues %}
+                    <tr>
+                        <td><a href="#"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                        <td>{{ items.issue_summary }}</td>
+                        <td>{{ items.identified_date}}</td>
+                        <td>{{ items.status }}</td>
+                        <td>{{ items.priority }}</td>
+                        <td>{{ items.traget_resolution_date }}</td>
+                        <td>{{ items.progress }}</td>
+                        <td>{{ items.actual_resolution_date }}</td>
+                        <td>{{ items.identified_by_person_id }}</td>
+                        <td>{{ items.related_project }}</td>
+                        <td>{{ items.assigned_to }}</td>
+                        <td><a method="DELETE" href="#"><i class="fa-solid fa-trash"></i></a></td>
+                      </tr>
+                    {% endfor %}
+                {% else %}
+                    {% for issue in all_issues %}
+                    
+                    <tr>
+                        <td><a href="#"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                        <td>{{ issue.issue_summary }}</td>
+                        <td>{{ issue.identified_date}}</td>
+                        <td>{{ issue.status }}</td>
+                        <td>{{ issue.priority }}</td>
+                        <td>{{ issue.traget_resolution_date }}</td>
+                        <td>{{ issue.progress }}</td>
+                        <td>{{ issue.actual_resolution_date }}</td>
+                        <td>{{ issue.identified_by_person_id }}</td>
+                        <td>{{ issue.related_project }}</td>
+                        <td>{{ issue.assigned_to }}</td>
+                        <td><a method="DELETE" href="#"><i class="fa-solid fa-trash"></i></a></td>
+                    </tr>
+                    
+                    {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

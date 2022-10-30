@@ -45,7 +45,7 @@
     width: 600px;
 }
 
-.project-details-expand .expand-each {
+.project-details-expand .expand-eachs {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -60,17 +60,17 @@
     color: rgb(240, 236, 236);
     border-radius: 10px;
 }
-.expand-each span {
+.expand-eachs span {
     margin-left: 30px;
 }
 
-.expand-each .pname {
+.expand-eachs .pname {
     margin-left: 20px;
 }
-.expand-each .sdate {
+.expand-eachs .sdate {
     margin-left: 40px;
 }
-.expand-each .description {
+.expand-eachs .description {
     margin-left: 20px;
     width: 200px;
 }

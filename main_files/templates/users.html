@@ -67,7 +67,7 @@
                         <td>{{ user.user_roles }}</td>
                         <td>{{ user.username}}</td>
                         <td>{{ user.assigned_project }}</td>
-                        <td><a method="DELETE" href="{{ url_for('delete_user', user_id=user.user_id) }}"><i class="fa-solid fa-trash"></i></a></td>
+                        <td><a class='reload' method="DELETE" href="{{ url_for('delete_user', user_id=user.user_id) }}"><i class="fa-solid fa-trash"></i></a></td>
                     </tr>
                     
                     {% endfor %}

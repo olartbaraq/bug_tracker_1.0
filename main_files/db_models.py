@@ -101,12 +101,12 @@ class Issues(db.Model):
     """class that defines the fields which issues users are 
     assigned to in the database """
     id = db.Column(db.Integer(), primary_key=True)
-    issue_summary = db.Column(db.String(255), nullable=False)
+    issue_summary = db.Column(db.String(300), nullable=False)
     issue_description = db.Column(db.String(5000), nullable=False)
-    identified_by_person_id = db.Column(db.Integer(), db.ForeignKey('user.user_id'), nullable=False)
+    identified_by_person_id = db.Column(db.String(50), db.ForeignKey('user.user_id'), nullable=False)
     identified_date = db.Column(db.DateTime, nullable=False)
-    related_project = db.Column(db.Integer(), db.ForeignKey('project.project_id'), nullable=False)
-    assigned_to = db.Column(db.Integer(), db.ForeignKey('user.user_id'), nullable=False)
+    related_project = db.Column(db.String(255), db.ForeignKey('project.project_id'), nullable=False)
+    assigned_to = db.Column(db.String(50), db.ForeignKey('user.user_id'), nullable=False)
     status = db.Column(db.String(30), nullable=False)
     priority = db.Column(db.String(30), nullable=False)
     traget_resolution_date = db.Column(db.DateTime, nullable=False)

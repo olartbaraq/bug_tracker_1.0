@@ -103,3 +103,47 @@ class SearchForm2(FlaskForm):
     searched = StringField(label="searched")
     Search = SubmitField(label="Search")
 
+
+class SearchForm3(FlaskForm):
+    """ """
+    searched = StringField(label="searched")
+    Search = SubmitField(label="Search")
+
+
+class Issue_Details(FlaskForm):
+    """ """
+
+    def assigned_user_query():
+        return User.query
+    
+
+    issue_summary = TextAreaField(label='summary', validators=[Length(min=10, max=300), DataRequired()])
+    issue_description = TextAreaField(label='summary', validators=[Length(min=200, max=2000), DataRequired()])
+    related_project = QuerySelectField(query_factory=User_Details.assigned_project_query, allow_blank=True, get_label='project_name')
+    identified_by = QuerySelectField(query_factory=assigned_user_query, allow_blank=True, get_label='username')
+    identified_date = DateField(label='identified date', validators=[DataRequired()])
+    assigned_to = QuerySelectField(query_factory=assigned_user_query, allow_blank=True, get_label='username')
+    status = RadioField(choices=[('Open','Open'),('On-hold','On-hold'),('Closed','Closed')], validators=[DataRequired()])
+    priority = RadioField(choices=[('Low','Low'),('Medium','Medium'),('High','High')], validators=[DataRequired()])
+    target_resolution_date = DateField(label='target date', validators=[DataRequired()])
+    progress_report = TextAreaField(label='progress', validators=[Length(min=2, max=300), DataRequired()])
+    actual_resolution_date = DateField(label='actual date', validators=[DataRequired()])
+    resolution_summary = TextAreaField(label='resolution', validators=[Length(min=2, max=300), DataRequired()])
+    create = SubmitField()
+
+
+class Edit_Issue_Details(FlaskForm):
+    """ """
+    issue_summary = TextAreaField(label='summary', validators=[Length(min=10, max=300), DataRequired()])
+    issue_description = TextAreaField(label='summary', validators=[Length(min=200, max=2000), DataRequired()])
+    related_project = QuerySelectField(query_factory=User_Details.assigned_project_query, allow_blank=True, get_label='project_name')
+    identified_by = QuerySelectField(query_factory=Issue_Details.assigned_user_query, allow_blank=True, get_label='username')
+    identified_date = DateField(label='identified date', validators=[DataRequired()])
+    assigned_to = QuerySelectField(query_factory=Issue_Details.assigned_user_query, allow_blank=True, get_label='username')
+    status = RadioField(choices=[('Open','Open'),('On-hold','On-hold'),('Closed','Closed')], validators=[DataRequired()])
+    priority = RadioField(choices=[('Low','Low'),('Medium','Medium'),('High','High')], validators=[DataRequired()])
+    target_resolution_date = DateField(label='target date', validators=[DataRequired()])
+    progress_report = TextAreaField(label='progress', validators=[Length(min=2, max=300), DataRequired()])
+    actual_resolution_date = DateField(label='actual date', validators=[DataRequired()])
+    resolution_summary = TextAreaField(label='resolution', validators=[Length(min=2, max=300), DataRequired()])
+    apply_changes = SubmitField()

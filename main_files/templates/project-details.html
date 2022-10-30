@@ -20,19 +20,19 @@
         <div class="project-details-expand">
             <form method="POST"  class="information">
                 {{ form.hidden_tag() }}
-                <div class="expand-each">
+                <div class="expand-eachs">
                     <p>*Project Name</p>{{ form.project_name(class="pname", type="text", id="project_name") }}
                 </div>
                 <br>
-                <div class="expand-each">
+                <div class="expand-eachs">
                     <p>*Project Description</p>{{ form.project_description(maxlength="3000", class="description") }}
                 </div>
                 <br>
-                <div class="expand-each">
+                <div class="expand-eachs">
                     <p>*Start Date</p>{{ form.start_date(class="sdate", type="date", id="start_date") }}
                 </div>
                 <br>
-                <div class="expand-each">
+                <div class="expand-eachs">
                     <p>*Target End Date</p>{{ form.target_end_date(class="sdate", type="date", id="Target-date") }}
                 </div>
                 <br>
