@@ -82,6 +82,9 @@ class User(db.Model):
     record_created_by = db.Column(db.String(100), nullable=False, default='admin')
     record_modified_by = db.Column(db.String(100), nullable=False, default='admin')
     user_roles = db.Column(db.String(10), nullable=True)
+
+    def __repr__(self):
+        return '{}'.format(self.username)
     
    
 
@@ -111,9 +114,30 @@ class Issues(db.Model):
     priority = db.Column(db.String(30), nullable=False)
     traget_resolution_date = db.Column(db.DateTime, nullable=False)
     progress = db.Column(db.String(4000), nullable=False)
-    actual_resolution_date = db.Column(db.DateTime, nullable=False)
-    resolution_summary = db.Column(db.String(4000), nullable=False)
+    actual_resolution_date = db.Column(db.DateTime, nullable=True)
+    resolution_summary = db.Column(db.String(4000), nullable=True)
     date_created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow())
     date_modified_on = db.Column(db.DateTime, nullable=False, default=datetime.utcnow())
     record_created_by = db.Column(db.String(100), nullable=False, default='admin')
     record_modified_by = db.Column(db.String(100), nullable=False, default='admin')
+
+    @property
+    def iden_date(self):
+        """ """
+        datetime_element = self.identified_date
+        date_element = datetime_element.strftime("%d/%m/%Y")
+        return date_element
+
+    @property
+    def resolute_date(self):
+        """ """
+        datetime_element = self.traget_resolution_date
+        date_element = datetime_element.strftime("%d/%m/%Y")
+        return date_element
+
+    @property
+    def f_resolute_date(self):
+        """ """
+        datetime_element = self.actual_resolution_date
+        date_element = datetime_element.strftime("%d/%m/%Y")
+        return date_element

@@ -18,7 +18,7 @@
         <div class="search-users search-issues">
             <form method="post" action="{{url_for('issues_page')}}">
                 {{ form.hidden_tag() }}
-                <i class="fa-solid fa-magnifying-glass"></i>
+                <!-- <i class="fa-solid fa-magnifying-glass"></i> -->
                 <input type="search" class="user-to-search issue-to-search" name="searched" placeholder="Search" aria-label="Search">
                 <button class="search-submit" type="submit" name="searched"><i class="fa-solid fa-magnifying-glass"></i></button>
                 <a href="{{url_for('issues_page')}}"><button type="button" class="m1-2 mb-1 close" aria-label="Close">
@@ -54,14 +54,14 @@
                 {% if searched %}
                     {% for items in searched_issues %}
                     <tr>
-                        <td><a href="#"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                        <td><a href="{{url_for('edit_issue_page', issue_id=items.id)}}"><i class="fa-solid fa-pen-to-square"></i></a></td>
                         <td>{{ items.issue_summary }}</td>
-                        <td>{{ items.identified_date}}</td>
+                        <td>{{ items.iden_date}}</td>
                         <td>{{ items.status }}</td>
                         <td>{{ items.priority }}</td>
-                        <td>{{ items.traget_resolution_date }}</td>
+                        <td>{{ items.resolute_date }}</td>
                         <td>{{ items.progress }}</td>
-                        <td>{{ items.actual_resolution_date }}</td>
+                        <td>{{ items.f_resolute_date }}</td>
                         <td>{{ items.identified_by_person_id }}</td>
                         <td>{{ items.related_project }}</td>
                         <td>{{ items.assigned_to }}</td>
@@ -72,14 +72,14 @@
                     {% for issue in all_issues %}
                     
                     <tr>
-                        <td><a href="#"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                        <td><a href="{{url_for('edit_issue_page', issue_id=issue.id)}}"><i class="fa-solid fa-pen-to-square"></i></a></td>
                         <td>{{ issue.issue_summary }}</td>
-                        <td>{{ issue.identified_date}}</td>
+                        <td>{{ issue.iden_date}}</td>
                         <td>{{ issue.status }}</td>
                         <td>{{ issue.priority }}</td>
-                        <td>{{ issue.traget_resolution_date }}</td>
+                        <td>{{ issue.resolute_date }}</td>
                         <td>{{ issue.progress }}</td>
-                        <td>{{ issue.actual_resolution_date }}</td>
+                        <td>{{ issue.f_resolute_date }}</td>
                         <td>{{ issue.identified_by_person_id }}</td>
                         <td>{{ issue.related_project }}</td>
                         <td>{{ issue.assigned_to }}</td>

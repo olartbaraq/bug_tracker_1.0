@@ -1,0 +1,70 @@
+.issue-title {
+    width: 100%;
+    background: rgb(29, 28, 28);
+    height: 25px;
+    margin-left: -20px;
+}
+
+.issue-title h6 {
+    color: white;
+}
+
+#issue_summary {
+    margin-left: 20px;
+    margin-top: 20px;
+    padding: 5px;
+    width: 400px;
+    height: 50px;
+}
+
+#issue_project {
+    margin-left: 20px;
+    margin-top: 20px;
+    padding: 5px;
+    width: 250px;
+    height: 30px;
+}
+
+.expand-issue {
+    display: flex;
+    width: 550px;
+    height: 70px;
+    align-items: center;
+    justify-items: center;
+    justify-content: space-around;
+}
+
+.expand-issues {
+    display: flex;
+    width: 400px;
+    height: 70px;
+    align-items: center;
+    justify-items: center;
+    justify-content: space-around;
+}
+
+.expand-issued {
+    display: flex;
+    width: 500px;
+    height: 70px;
+    align-items: center;
+    justify-items: center;
+    justify-content: space-around;
+}
+
+.expand-issuer {
+    display: flex;
+    width: 600px;
+    height: 70px;
+    align-items: center;
+    justify-items: center;
+    justify-content: space-around;
+}
+
+#status {
+    display: flex;
+    width: 250px;
+    align-items: center;
+    justify-items: center;
+    justify-content: space-between;
+}

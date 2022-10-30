@@ -1,1 +1,79 @@
-.project-details-logo a{color:#1d1c1c}.title{display:flex;flex-direction:column;align-items:center}.buttons-to-create{display:flex;justify-content:space-between;margin-right:100px;align-items:center;width:170px}.title h6{background-color:#1d1c1c;color:#f0ecec;height:30px;width:100%}.buttons-to-create button{width:80px;height:30px;border:solid,10px,#e0ffff;background-color:#1d1c1c;color:#f0ecec;border-radius:10px}.project-details-expand{margin-left:50px;margin-top:50px}.project-details-expand{display:flex;flex-direction:column;justify-content:flex-start;height:550px;width:600px}.project-details-expand .expand-eachs{display:flex;flex-direction:row;align-items:center;width:500px}#submit{width:80px;height:30px;border:solid,10px,#e0ffff;background-color:#1d1c1c;color:#f0ecec;border-radius:10px}.expand-eachs span{margin-left:30px}.expand-eachs .pname{margin-left:20px}.expand-eachs .sdate{margin-left:40px}.expand-eachs .description{margin-left:20px;width:200px}
+.project-details-logo a {
+  color: rgb(29, 28, 28);
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.buttons-to-create {
+  display: flex;
+  justify-content: space-between;
+  margin-right: 100px;
+  align-items: center;
+  width: 170px;
+}
+
+.title h6 {
+  background-color: rgb(29, 28, 28);
+  color: rgb(240, 236, 236);
+  height: 30px;
+  width: 100%;
+}
+
+.buttons-to-create button {
+  width: 80px;
+  height: 30px;
+  border: solid, 10px, lightcyan;
+  background-color: rgb(29, 28, 28);
+  color: rgb(240, 236, 236);
+  border-radius: 10px;
+}
+
+.project-details-expand {
+  margin-left: 50px;
+  margin-top: 50px;
+}
+
+.project-details-expand {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 550px;
+  width: 600px;
+}
+
+.project-details-expand .expand-eachs {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 500px;
+}
+
+#submit {
+  width: 80px;
+  height: 30px;
+  border: solid, 10px, lightcyan;
+  background-color: rgb(29, 28, 28);
+  color: rgb(240, 236, 236);
+  border-radius: 10px;
+}
+
+.expand-eachs span {
+  margin-left: 30px;
+}
+
+.expand-eachs .pname {
+  margin-left: 20px;
+}
+
+.expand-eachs .sdate {
+  margin-left: 40px;
+}
+
+.expand-eachs .description {
+  margin-left: 20px;
+  width: 200px;
+}/*# sourceMappingURL=project-details.css.map */

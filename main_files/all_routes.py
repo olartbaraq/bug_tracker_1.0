@@ -265,15 +265,13 @@ def issue_info_page():
             issue_to_create = Issues(issue_summary=form.issue_summary.data,
                                      issue_description=form.issue_description.data,
                                      identified_by_person_id=form.identified_by.data.__repr__(),
-                                     identified_data=form.identified_date.data,
+                                     identified_date=form.identified_date.data,
                                      related_project=form.related_project.data.__repr__(),
                                      assigned_to=form.assigned_to.data.__repr__(),
                                      status=form.status.data,
                                      priority=form.priority.data,
                                      traget_resolution_date=form.target_resolution_date.data,
-                                     progress=form.progress_report.data,
-                                     actual_resolution_date=form.actual_resolution_date.data,
-                                     resolution_summary=form.resolution_summary.data)
+                                     progress=form.progress_report.data)
             db.session.add(issue_to_create)
             db.session.commit()
             flash("Issue added Sucessfully", category='info')
@@ -282,3 +280,47 @@ def issue_info_page():
         for err_msg in form.errors.values():
             flash("Error: {}".format(err_msg), category='danger')
     return render_template('issue-details.html', form=form)
+
+
+@app.route('/issue-info/edit/<int:issue_id>', methods=['GET', 'POST'])
+def edit_issue_page(issue_id):
+    """a route to edit individual project page"""
+
+    each_issue = Issues.query.get_or_404(issue_id)
+    form = Issue_Details()
+    form2 = Edit_Issue_Details()
+
+    if request.method == 'POST':
+        if form2.validate_on_submit():
+            each_issue.issue_summary=form.issue_summary.data
+            each_issue.issue_description=form.issue_description.data
+            each_issue.identified_by_person_id=form.identified_by.data.__repr__()
+            each_issue.identified_date=form.identified_date.data
+            each_issue.related_project=form.related_project.data.__repr__()
+            each_issue.assigned_to=form.assigned_to.data.__repr__()
+            each_issue.status=form.status.data
+            each_issue.priority=form.priority.data
+            each_issue.traget_resolution_date=form.target_resolution_date.data
+            each_issue.progress=form.progress_report.data
+            each_issue.actual_resolution_date=form2.actual_resolution_date.data
+            each_issue.resolution_summary=form2.resolution_summary.data
+            db.session.add(each_issue)
+            db.session.commit()
+            flash("Issue Updated Sucessfully", category='info')
+            return redirect(url_for('issues_page'))
+    elif form.errors != {}:
+        for err_msg in form.errors.values():
+            flash("Error: {}".format(err_msg), category='danger')
+    
+    form.issue_summary.data=each_issue.issue_summary
+    form.issue_description.data=each_issue.issue_description
+    form.identified_by.data=each_issue.identified_by_person_id
+    form.identified_date.data=each_issue.identified_date
+    form.related_project.data=each_issue.related_project
+    form.assigned_to.data=each_issue.assigned_to
+    form.status.data=each_issue.status
+    form.priority.data=each_issue.priority
+    form.target_resolution_date.data=each_issue.traget_resolution_date
+    form.progress_report.data=each_issue.progress
+
+    return render_template('issue-summary-by-project.html', form=form, form2=form2, issue_id=each_issue.id, each_issue=each_issue)
