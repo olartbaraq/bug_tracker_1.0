@@ -1,7 +1,7 @@
 
 from flask_wtf import FlaskForm
 from flask import request
-from wtforms import StringField, PasswordField, SubmitField, TextAreaField, IntegerField, DateField, RadioField
+from wtforms import StringField, PasswordField, SubmitField, TextAreaField, IntegerField, DateField, RadioField, SelectField
 from wtforms_sqlalchemy.fields import QuerySelectField
 from flask_wtf.file import FileField, FileRequired
 from wtforms.validators import Length, DataRequired, ValidationError
@@ -86,7 +86,7 @@ class User_Details(FlaskForm):
     email = StringField(label="Email", validators=[Length(min=2, max=50), DataRequired()])
     username = StringField(label="Username", validators=[Length(min=2, max=20), DataRequired()])
     phone = StringField(label="Phone", validators=[Length(min=11, max=14, message='Phone number must be between 11 and 14 characters'), DataRequired()])
-    assigned_project = QuerySelectField(query_factory=assigned_project_query, allow_blank=True, get_label='project_name', validators=[validate_roles_for_lower_up])
+    assigned_project = QuerySelectField(query_factory=assigned_project_query, allow_blank=True, get_label='project_name', validators=[validate_roles_for_lower_up], blank_text = '-Select Project-')
     user_roles = RadioField(choices=[('CTO','CTO'),('Manager','Manager'),('Lead','Lead'),('Member','Member')],validators=[DataRequired(), validate_roles_for_higher_up])
     create = SubmitField()
 
@@ -94,7 +94,7 @@ class User_Details(FlaskForm):
 class Edit_User_details(FlaskForm):
     """ """
     user_roles = RadioField(choices=[('CTO','CTO'),('Manager','Manager'),('Lead','Lead'),('Member','Member')], validators=[DataRequired(), User_Details.validate_roles_for_higher_up, User_Details.validate_roles_for_lower_up])
-    assigned_project = QuerySelectField(query_factory=User_Details.assigned_project_query, allow_blank=True, get_label='project_name')
+    assigned_project = QuerySelectField(query_factory=User_Details.assigned_project_query, allow_blank=True, get_label='project_name', blank_text = '-Select Project-')
     save = SubmitField()
     
 
@@ -114,15 +114,15 @@ class Issue_Details(FlaskForm):
     """ """
 
     def assigned_user_query():
-        return User.query
+       return User.query
     
 
     issue_summary = TextAreaField(label='summary', validators=[Length(min=10, max=300), DataRequired()])
     issue_description = TextAreaField(label='summary', validators=[Length(min=200, max=2000), DataRequired()])
-    related_project = QuerySelectField(query_factory=User_Details.assigned_project_query, allow_blank=True, get_label='project_name')
-    identified_by = QuerySelectField(query_factory=assigned_user_query, allow_blank=True, get_label='username')
+    related_project = SelectField('Related Project', choices=[], coerce=str, validate_choice=True)
+    identified_by = QuerySelectField(query_factory=assigned_user_query, allow_blank=True, get_label='username', blank_text = '-Select Person-')
     identified_date = DateField(label='identified date', validators=[DataRequired()])
-    assigned_to = QuerySelectField(query_factory=assigned_user_query, allow_blank=True, get_label='username')
+    assigned_to = SelectField('Assigned To', choices=[])
     status = RadioField(choices=[('Open','Open'),('On-hold','On-hold'),('Closed','Closed')], validators=[DataRequired()])
     priority = RadioField(choices=[('Low','Low'),('Medium','Medium'),('High','High')], validators=[DataRequired()])
     target_resolution_date = DateField(label='target date', validators=[DataRequired()])

@@ -64,8 +64,8 @@
                         <td>{{ items.f_resolute_date }}</td>
                         <td>{{ items.identified_by_person_id }}</td>
                         <td>{{ items.related_project }}</td>
-                        <td>{{ items.assigned_to }}</td>
-                        <td><a method="DELETE" href="#"><i class="fa-solid fa-trash"></i></a></td>
+                        <td>{{ items.assigned_or_not }}</td>
+                        <td><a method="DELETE" href="{{url_for('delete_issue_page', issue_id=issue.id)}}"><i class="fa-solid fa-trash"></i></a></td>
                       </tr>
                     {% endfor %}
                 {% else %}
@@ -82,8 +82,8 @@
                         <td>{{ issue.f_resolute_date }}</td>
                         <td>{{ issue.identified_by_person_id }}</td>
                         <td>{{ issue.related_project }}</td>
-                        <td>{{ issue.assigned_to }}</td>
-                        <td><a method="DELETE" href="#"><i class="fa-solid fa-trash"></i></a></td>
+                        <td>{{ issue.assigned_or_not }}</td>
+                        <td><a method="DELETE" href="{{url_for('delete_issue_page', issue_id=issue.id)}}"><i class="fa-solid fa-trash"></i></a></td>
                     </tr>
                     
                     {% endfor %}

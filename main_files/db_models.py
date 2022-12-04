@@ -22,8 +22,6 @@ class Project(db.Model):
     date_modified_on = db.Column(db.DateTime, nullable=False, default=datetime.utcnow())
     record_created_by = db.Column(db.String(100), nullable=False, default='admin')
     record_modified_by = db.Column(db.String(100), nullable=False, default='admin')
-    project_issues = db.relationship('Issues', backref='issue_project', lazy=True)
-    project_users = db.relationship('User', backref='user_project', lazy=True)
 
     def __repr__(self):
         return '{}'.format(self.project_name)
@@ -76,7 +74,7 @@ class User(db.Model):
     email = db.Column(db.String(50), nullable=False)
     phone = db.Column(db.String(14), nullable=False)
     username = db.Column(db.String(50), nullable=False)
-    assigned_project = db.Column(db.String(250), db.ForeignKey('project.project_id'))
+    assigned_project = db.Column(db.String(250), nullable=True)
     date_created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow())
     date_modified_on = db.Column(db.DateTime, nullable=False, default=datetime.utcnow())
     record_created_by = db.Column(db.String(100), nullable=False, default='admin')
@@ -106,10 +104,10 @@ class Issues(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     issue_summary = db.Column(db.String(300), nullable=False)
     issue_description = db.Column(db.String(5000), nullable=False)
-    identified_by_person_id = db.Column(db.String(50), db.ForeignKey('user.user_id'), nullable=False)
+    identified_by_person_id = db.Column(db.String(50), nullable=False)
     identified_date = db.Column(db.DateTime, nullable=False)
-    related_project = db.Column(db.String(255), db.ForeignKey('project.project_id'), nullable=False)
-    assigned_to = db.Column(db.String(50), db.ForeignKey('user.user_id'), nullable=False)
+    related_project = db.Column(db.String(255), nullable=False)
+    assigned_to = db.Column(db.String(50), nullable=False)
     status = db.Column(db.String(30), nullable=False)
     priority = db.Column(db.String(30), nullable=False)
     traget_resolution_date = db.Column(db.DateTime, nullable=False)
@@ -141,3 +139,11 @@ class Issues(db.Model):
         datetime_element = self.actual_resolution_date
         date_element = datetime_element.strftime("%d/%m/%Y")
         return date_element
+
+    @property
+    def assigned_or_not(self):
+        """ """
+        if self.assigned_to == 'None':
+            return ('Unassigned')
+        else:
+            return self.assigned_to

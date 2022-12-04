@@ -260,6 +260,11 @@ def issues_page():
 def issue_info_page():
     """a route to return the website users details"""
     form = Issue_Details()
+    
+    form.related_project.choices = [(project.project_id, project.project_name) for project in Project.query.all()]
+    form.assigned_to.choices = [(user.user_id, user.username) for user in User.query.all()]
+    # form.assigned_to.choices = [(user.user_id, user.username) for user in User.query.filter_by(assigned_project=form.related_project.data.__repr__()).all()]
+    print(form.assigned_to.choices)
     if request.method == 'POST':
         if form.validate_on_submit():
             issue_to_create = Issues(issue_summary=form.issue_summary.data,
@@ -280,6 +285,18 @@ def issue_info_page():
         for err_msg in form.errors.values():
             flash("Error: {}".format(err_msg), category='danger')
     return render_template('issue-details.html', form=form)
+
+
+@app.route('/issues/<related_project>')
+def issue(related_project):
+    related_project = User.query.filter_by(assigned_project=related_project).all()
+    userArray = []
+    for user in related_project:
+        userObj = {}
+        userObj['id'] = user.user_id
+        userObj['username'] = user.username
+        userArray.append(userObj)
+    return jsonify({'related_project': userArray})
 
 
 @app.route('/issue-info/edit/<int:issue_id>', methods=['GET', 'POST'])
@@ -314,13 +331,30 @@ def edit_issue_page(issue_id):
     
     form.issue_summary.data=each_issue.issue_summary
     form.issue_description.data=each_issue.issue_description
-    form.identified_by.data=each_issue.identified_by_person_id
+    form.identified_by.data = User.query.filter_by(username=each_issue.identified_by_person_id).first()
     form.identified_date.data=each_issue.identified_date
-    form.related_project.data=each_issue.related_project
-    form.assigned_to.data=each_issue.assigned_to
+    form.related_project.data=Project.query.filter_by(project_name=each_issue.related_project).first()
+    form.assigned_to.data=User.query.filter_by(username=each_issue.assigned_to).first()
     form.status.data=each_issue.status
     form.priority.data=each_issue.priority
     form.target_resolution_date.data=each_issue.traget_resolution_date
     form.progress_report.data=each_issue.progress
 
     return render_template('issue-summary-by-project.html', form=form, form2=form2, issue_id=each_issue.id, each_issue=each_issue)
+
+
+@app.route('/issues/delete/<int:issue_id>', methods=['GET', 'DELETE'])
+def delete_issue_page(issue_id):
+    """Delete a project"""
+    each_issue = Issues.query.get_or_404(issue_id)
+    try:
+        db.session.delete(each_issue)
+        db.session.commit()
+        flash('Issue Deleted successfully', category='info')
+        all_issues = Issues.query.order_by(Issues.date_created).all()
+        return render_template('issues.html', all_issues=all_issues, each_issue=each_issue)
+
+    except:
+        flash("whoops! There was a problem deleting the project from database")
+        all_issues = Issues.query.order_by(Issues.date_created).all()
+        return render_template('issues.html', all_issues=all_issues, each_issue=each_issue)
