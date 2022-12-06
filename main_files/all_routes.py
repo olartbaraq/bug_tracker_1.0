@@ -266,13 +266,16 @@ def issue_info_page():
     # form.assigned_to.choices = [(user.user_id, user.username) for user in User.query.filter_by(assigned_project=form.related_project.data.__repr__()).all()]
     print(form.assigned_to.choices)
     if request.method == 'POST':
+        Issue_proj = Project.query.filter_by(project_id=form.related_project.data).first()
+        Issue_name = User.query.filter_by(user_id=form.assigned_to.data).first()
+
         if form.validate_on_submit():
             issue_to_create = Issues(issue_summary=form.issue_summary.data,
                                      issue_description=form.issue_description.data,
                                      identified_by_person_id=form.identified_by.data.__repr__(),
                                      identified_date=form.identified_date.data,
-                                     related_project=form.related_project.data.__repr__(),
-                                     assigned_to=form.assigned_to.data.__repr__(),
+                                     related_project=Issue_proj.project_name,
+                                     assigned_to=Issue_name.username,
                                      status=form.status.data,
                                      priority=form.priority.data,
                                      traget_resolution_date=form.target_resolution_date.data,
@@ -287,16 +290,16 @@ def issue_info_page():
     return render_template('issue-details.html', form=form)
 
 
-@app.route('/issues/<related_project>')
-def issue(related_project):
-    related_project = User.query.filter_by(assigned_project=related_project).all()
+@app.route('/issues/<project>')
+def issue(project):
+    allUsers = User.query.filter_by(assigned_project=project).all()
     userArray = []
-    for user in related_project:
+    for user in allUsers:
         userObj = {}
-        userObj['id'] = user.user_id
+        userObj['user_id'] = user.user_id
         userObj['username'] = user.username
         userArray.append(userObj)
-    return jsonify({'related_project': userArray})
+    return jsonify({'allUsers': userArray})
 
 
 @app.route('/issue-info/edit/<int:issue_id>', methods=['GET', 'POST'])
