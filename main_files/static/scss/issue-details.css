@@ -25,6 +25,14 @@
   height: 30px;
 }
 
+#issue_person {
+  margin-left: 20px;
+  margin-top: 20px;
+  padding: 5px;
+  width: 250px;
+  height: 30px;
+}
+
 .expand-issue {
   display: flex;
   width: 550px;

@@ -44,7 +44,7 @@
                     <h6>Progress</h6>
                 </div>
                 <div class="expand-issues">
-                    *Assigned To{{ form.assigned_to(id="issue_project") }}
+                    *Assigned To{{ form.assigned_to(id="issue_person") }}
                 </div>
                 <br>
                 <div class="expand-issues">
@@ -69,6 +69,26 @@
                 </div>
                 <br>
             </form>
+
+            <script>
+                let project_select = document.getElementById('issue_project');
+                let user_select = document.getElementById('issue_person');
+
+                project_select.onchange = function() {
+                    related_project = (project_select.value);
+                    // alert(related_project);
+
+                    fetch('/issues/' + related_project).then(function(response) {
+                        response.json().then(function(data) {
+                            let optionHTML = '';
+                            for(let user of data.allUsers) {
+                                optionHTML += '<option value="' + user.user_id + '">' + user.username + '</option>';
+                            }
+                            user_select.innerHTML = optionHTML;
+                        });
+                    });
+                }
+            </script>
         </div>  
     </div>
 </div>
