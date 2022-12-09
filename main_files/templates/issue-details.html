@@ -74,9 +74,10 @@
                 let project_select = document.getElementById('issue_project');
                 let user_select = document.getElementById('issue_person');
 
+
                 project_select.onchange = function() {
                     related_project = (project_select.value);
-                    // alert(related_project);
+                    alert(related_project);
 
                     fetch('/issues/' + related_project).then(function(response) {
                         response.json().then(function(data) {
@@ -84,7 +85,12 @@
                             for(let user of data.allUsers) {
                                 optionHTML += '<option value="' + user.user_id + '">' + user.username + '</option>';
                             }
-                            user_select.innerHTML = optionHTML;
+                            if(related_project) {
+                                user_select.innerHTML = optionHTML;
+                            }else {
+                                user_select.innerHTML = user_select;
+                            }
+                            
                         });
                     });
                 }

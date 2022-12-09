@@ -261,9 +261,9 @@ def issue_info_page():
     """a route to return the website users details"""
     form = Issue_Details()
     
-    form.related_project.choices = [(project.project_id, project.project_name) for project in Project.query.all()]
-    form.assigned_to.choices = [(user.user_id, user.username) for user in User.query.all()]
-    # form.assigned_to.choices = [(user.user_id, user.username) for user in User.query.filter_by(assigned_project=form.related_project.data.__repr__()).all()]
+    form.related_project.choices = ['Select a project'] + [(project.project_name) for project in Project.query.all()]
+    form.assigned_to.choices = ['Select a user'] + [(user.user_id, user.username) for user in User.query.all()]
+    
     print(form.assigned_to.choices)
     if request.method == 'POST':
         Issue_proj = Project.query.filter_by(project_id=form.related_project.data).first()

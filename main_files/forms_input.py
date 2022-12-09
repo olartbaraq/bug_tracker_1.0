@@ -119,7 +119,7 @@ class Issue_Details(FlaskForm):
 
     issue_summary = TextAreaField(label='summary', validators=[Length(min=10, max=300), DataRequired()])
     issue_description = TextAreaField(label='summary', validators=[Length(min=200, max=2000), DataRequired()])
-    related_project = SelectField('Related Project', choices=[], coerce=str, validate_choice=True)
+    related_project = SelectField('Related Project', choices=[])
     identified_by = QuerySelectField(query_factory=assigned_user_query, allow_blank=True, get_label='username', blank_text = '-Select Person-')
     identified_date = DateField(label='identified date', validators=[DataRequired()])
     assigned_to = SelectField('Assigned To', choices=[])
