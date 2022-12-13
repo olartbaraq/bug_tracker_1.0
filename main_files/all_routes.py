@@ -10,7 +10,7 @@ from main_files import app
 from main_files.db_models import db
 from flask import render_template, url_for, redirect, request, flash,jsonify
 from flask_login import login_user, logout_user, login_required, current_user
-from main_files.forms_input import Project_Details, Edit_Project_Details, SearchForm, SearchForm3, User_Details, SearchForm2, Edit_User_details, Issue_Details, Edit_Issue_Details
+from main_files.forms_input import Project_Details, Edit_Project_Details, SearchForm, SearchForm3, User_Details, SearchForm2, Edit_User_details, Issue_Details, Edit_Issue_Details, Issue_Summary
 
 
 @app.route('/')
@@ -118,12 +118,6 @@ def delete_project(project_id):
         flash("whoops! There was a problem deleting the project from database")
         # all_projects = Project.query.order_by(Project.date_created)
         return render_template('projects.html') # all_projects=all_projects)
-
-
-@app.route('/reports')
-def reports_page():
-    """a route to return the projects reports on issues opened or closed"""
-    return ('<h5> reports_page </h5>')
 
 
 @app.context_processor
@@ -261,10 +255,9 @@ def issue_info_page():
     """a route to return the website users details"""
     form = Issue_Details()
     
-    form.related_project.choices = ['Select a project'] + [(project.project_name) for project in Project.query.all()]
-    form.assigned_to.choices = ['Select a user'] + [(user.user_id, user.username) for user in User.query.all()]
+    form.related_project.choices = ['Select Project'] + [(project.project_name) for project in Project.query.all()]
+    form.assigned_to.choices = ['Select User'] + [(user.user_id, user.username) for user in User.query.all()]
     
-    print(form.assigned_to.choices)
     if request.method == 'POST':
         Issue_proj = Project.query.filter_by(project_id=form.related_project.data).first()
         Issue_name = User.query.filter_by(user_id=form.assigned_to.data).first()
@@ -343,7 +336,7 @@ def edit_issue_page(issue_id):
     form.target_resolution_date.data=each_issue.traget_resolution_date
     form.progress_report.data=each_issue.progress
 
-    return render_template('issue-summary-by-project.html', form=form, form2=form2, issue_id=each_issue.id, each_issue=each_issue)
+    return render_template('issue-details-edit.html', form=form, form2=form2, issue_id=each_issue.id, each_issue=each_issue)
 
 
 @app.route('/issues/delete/<int:issue_id>', methods=['GET', 'DELETE'])
@@ -361,3 +354,18 @@ def delete_issue_page(issue_id):
         flash("whoops! There was a problem deleting the project from database")
         all_issues = Issues.query.order_by(Issues.date_created).all()
         return render_template('issues.html', all_issues=all_issues, each_issue=each_issue)
+
+
+
+@app.route('/reports')
+def reports_page():
+    """a route to return the projects reports on issues opened or closed"""
+    return render_template('reports.html')
+
+@app.route('/issue-summary')
+def issue_summary_page():
+    """ """
+    form = Issue_Summary()
+    form.related_project.choices = [(project.project_name) for project in Project.query.all()]
+
+    return render_template('issue-summary-by-project.html', form=form)

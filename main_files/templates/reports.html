@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}
+    Reports Page
+{% endblock %}
+
+{% block content %}
+
+<div class="report">
+
+    <div class="report-logo">
+        <p>
+            <a href="{{url_for('home_page')}}">Home</a> <span> > </span>
+            <a href="{{url_for('reports_page')}}">Reports</a>
+        </p>
+    </div>
+    <div class="report-items">
+        <div class="report-items-icons">
+            <i class="fa-solid fa-book-atlas fa-2x"></i>
+            <a href="{{url_for('issue_summary_page')}}">Issue Summary by Project</a>
+        </div>
+        <div class="report-items-icons">
+            <i class="fa-solid fa-list-check fa-2x"></i>
+            <a href="#">Assign Open Issues</a>
+        </div>
+        <div class="report-items-icons">
+            <i class="fa-solid fa-calendar-days fa-2x"></i>
+            <a href="#">Target Resolution Date</a>
+        </div>
+        <div class="report-items-icons">
+            <i class="fa-solid fa-chart-pie fa-2x"></i>
+            <a href="#">Average Days to Resolve</a>
+        </div>
+        <div class="report-items-icons">
+            <i class="fa-solid fa-gears fa-2x"></i>
+            <a href="#">Issues Resolved by Month</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

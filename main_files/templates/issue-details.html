@@ -77,7 +77,7 @@
 
                 project_select.onchange = function() {
                     related_project = (project_select.value);
-                    alert(related_project);
+                    // alert(related_project);
 
                     fetch('/issues/' + related_project).then(function(response) {
                         response.json().then(function(data) {

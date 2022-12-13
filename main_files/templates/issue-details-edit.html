@@ -1,0 +1,282 @@
+<style>
+body {
+  width: 100vw;
+  height: 100vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  background: lightgrey;
+  font-family: sans-serif;
+  font-size: smaller;
+}
+
+.base-contain a {
+  color: white;
+}
+
+.base-contain {
+  height: 150px;
+  background-color: rgb(29, 28, 28);
+  color: rgb(240, 236, 236);
+}
+
+.base-name {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.home-sections {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  font-size: small;
+  margin-right: 100px;
+}
+
+footer {
+  position: relative;
+  top: 700px;
+  text-align: center;
+}
+
+.issue-identification {
+    font-size: smaller;
+}
+
+.issue-title {
+  width: 100%;
+  background: rgb(29, 28, 28);
+  height: 25px;
+}
+
+.issue-title h6 {
+  color: white;
+  margin-left: 20px;
+}
+
+#issue_summary {
+  margin-left: 20px;
+  margin-top: 20px;
+  padding: 5px;
+  width: 400px;
+  height: 50px;
+}
+
+#issue_project {
+  margin-left: 20px;
+  margin-top: 20px;
+  padding: 5px;
+  width: 250px;
+  height: 30px;
+}
+
+.expand-issue {
+  display: flex;
+  width: 550px;
+  height: 70px;
+  align-items: center;
+  justify-items: center;
+  justify-content: space-around;
+}
+
+.expand-issues {
+  display: flex;
+  width: 400px;
+  height: 70px;
+  align-items: center;
+  justify-items: center;
+  justify-content: space-around;
+}
+
+.expand-issued {
+  display: flex;
+  width: 500px;
+  height: 70px;
+  align-items: center;
+  justify-items: center;
+  justify-content: space-around;
+}
+
+.expand-issuer {
+  display: flex;
+  width: 600px;
+  height: 70px;
+  align-items: center;
+  justify-items: center;
+  justify-content: space-around;
+}
+
+#status {
+  display: flex;
+  width: 250px;
+  align-items: center;
+  justify-items: center;
+  justify-content: space-between;
+}
+
+.buttons-to-create {
+    margin-top: 20px;
+    margin-left: 100px;
+}
+
+.buttons-to-create button {
+    width: 80px;
+    height: 30px;
+    border: solid, 10px, lightcyan;
+    background-color: rgb(29, 28, 28);
+    color: rgb(240, 236, 236);
+    border-radius: 10px;
+}
+
+.buttons-to-create #submit {
+    width: 130px;
+    height: 30px;
+    border: solid, 10px, lightcyan;
+    background-color: rgb(29, 28, 28);
+    color: rgb(240, 236, 236);
+    border-radius: 10px;
+}
+
+</style>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/0a332cb790.js" crossorigin="anonymous"></script>
+    <script src="../static/scripts/drop-down.js"></script>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <title> 
+        Edit-Issues
+    </title>
+</head>
+<body>
+    <header>
+        <div class="base-contain">
+            <div class="base-name">
+                <h5> Bug Tracker 1.0</h5>
+                <a href="{{url_for('logout_page')}}" class="logout"> Logout</a>
+            </div>
+            <div class="home-sections">
+                <a href="{{url_for('dashboard_page')}}" class="dashboard">Dashboard <span>|</span></a>
+                <a href="{{url_for('projects_page')}}" class="dashboard"> Projects <span>|</span></a>
+                <a href="{{url_for('issues_page')}}" class="dashboard"> Issues <span>|</span></a>
+                <a href="{{url_for('reports_page')}}" class="dashboard"> Reports <span>|</span></a>
+                <a href="{{url_for('users_page')}}" class="dashboard"> Users</a>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="message">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">
+	         <button type="button" class="m1-2 mb-1 close" data-dismiss="alert" aria-label="Close">
+	            <span arai-hidden="true">&times;</span>
+	        </button>
+	        <p>{{ message }}</p>
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+        </div>
+    </main>
+    <div class="user-items issue-details">
+        <div class="user-logo issue-logo">
+            <p>
+                <a href="{{url_for('home_page')}}">Home</a> <span> > </span>
+                <a href="{{url_for('issues_page')}}">Issues</a> <span> > </span>
+                <a href="{{url_for('issue_info_page')}}">Issue Details</a>
+            </p>
+        </div>
+        <div class="issue-identification">
+            <div class="issue-title">
+                <h6>Issue Identification</h6>
+            </div>
+    
+            <div class="issue-details-expand">
+                <form method="POST"  class="information">
+                    {{ form.hidden_tag() }}
+                    <div class="expand-issue">
+                        *Issue Summary{{ form.issue_summary(type="text", id="issue_summary", maxlength="300") }}
+                    </div>
+                    <br>
+                    <div class="expand-issue">
+                        *Issue Description{{ form.issue_description(type="text", id="issue_summary", maxlength="2000") }}
+                    </div>
+                    <br>
+                    <div class="expand-issues">
+                        *Related Project{{ form.related_project(id="issue_project") }}
+                    </div>
+                    <br>
+                    <div class="expand-issues">
+                        *Identified By{{ form.identified_by(id="issue_project") }}
+                    </div>
+                    <br>
+                    <div class="expand-issues">
+                        *Identified Date{{ form.identified_date(id="issue_project") }}
+                    </div>
+                    <br>
+                    <div class="issue-title">
+                        <h6>Progress</h6>
+                    </div>
+                    <div class="expand-issues">
+                        *Assigned To{{ form.assigned_to(id="issue_project") }}
+                    </div>
+                    <br>
+                    <div class="expand-issues">
+                        *Status{{ form.status(id="status") }}
+                    </div>
+                    <br>
+                    <div class="expand-issues">
+                        *Priority{{ form.priority(id="status") }}
+                    </div>
+                    <br>
+                    <div class="expand-issued">
+                        *Target Resolution date{{ form.target_resolution_date(id="issue_project") }}
+                    </div>
+                    <br>
+                    <div class="expand-issue">
+                        *Progress{{ form.progress_report (type="text", id="issue_summary", maxlength="300")}}
+                    </div>
+                    <br>
+		            <div class="issue-title">
+                    <h6>Resolution</h6>
+                    </div>
+                    <div class="expand-issued">
+                    *Actual Resolution Date{{ form2.actual_resolution_date(id="issue_project") }}
+                    </div>
+                    <br>
+                    <div class="expand-issuer">
+                    *Resolution Summary{{ form2.resolution_summary(id="issue_summary") }}
+                    </div>
+                    <br>
+                    <div class="buttons-to-create">
+                        <button type="reset" id="reset" name="reset">Cancel</button>
+                        {{ form2.apply_changes(type="submit", id="submit") }}
+                    </div>
+                    <br>
+                </form>
+            </div>  
+        </div>
+    </div>
+    <footer>
+        <p>
+            designed and directed by Akanbi Mubaraq Olatunde Copyright &copy; 2022
+        </p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>
+

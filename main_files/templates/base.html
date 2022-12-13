@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/0a332cb790.js" crossorigin="anonymous"></script>
-    <script src="../static/scripts/functionalities.js" crossorigin="anonymous"></script>
+    <script src="../static/scripts/functionalities.js"></script>
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,6 +18,9 @@
     <link rel="stylesheet" href="../static/scss/user-info.css">
     <link rel="stylesheet" href="../static/scss/issues.css">
     <link rel="stylesheet" href="../static/scss/issue-details.css">
+    <link rel="stylesheet" href="../static/scss/reports.css">
+    <link rel="stylesheet" href="../static/scss/issue-summary-by-project.css">
+    
 
     
     <title> 
@@ -30,7 +33,8 @@
     <header>
         <div class="base-contain">
             <div class="base-name">
-                <h5> Bug Tracker 1.0</h5>
+                <a href="{{url_for('home_page')}}" class="logout"> <h5> Bug Tracker 1.0</h5> </a>             
+                
                 <a href="{{url_for('logout_page')}}" class="logout"> Logout</a>
             </div>
             <div class="home-sections">
