@@ -362,10 +362,13 @@ def reports_page():
     """a route to return the projects reports on issues opened or closed"""
     return render_template('reports.html')
 
-@app.route('/issue-summary')
+@app.route('/issue-summary', methods=['GET', 'POST'])
 def issue_summary_page():
     """ """
-    form = Issue_Summary()
-    form.related_project.choices = [(project.project_name) for project in Project.query.all()]
-
-    return render_template('issue-summary-by-project.html', form=form)
+    form4 = Issue_Summary()
+    form4.related_project.choices = [(project.project_name) for project in Project.query.all()]
+    if request.method == 'POST':
+        if form4.validate_on_submit():
+            Issue_proj = Issues.query.filter_by(id=form4.related_project.data).first()
+            return render_template('issue-summary-by-project.html', form4=form4, Issue_proj=Issue_proj)
+    return render_template('issue-summary-by-project.html', form4=form4)
