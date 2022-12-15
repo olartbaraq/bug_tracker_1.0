@@ -255,8 +255,8 @@ def issue_info_page():
     """a route to return the website users details"""
     form = Issue_Details()
     
-    form.related_project.choices = ['Select Project'] + [(project.project_name) for project in Project.query.all()]
-    form.assigned_to.choices = ['Select User'] + [(user.user_id, user.username) for user in User.query.all()]
+    form.related_project.choices = ['<Select Project>'] + [(project.project_name) for project in Project.query.all()]
+    form.assigned_to.choices = ['<Select User>'] + [(user.username) for user in User.query.all()]
     
     if request.method == 'POST':
         Issue_proj = Project.query.filter_by(project_id=form.related_project.data).first()
@@ -303,14 +303,21 @@ def edit_issue_page(issue_id):
     form = Issue_Details()
     form2 = Edit_Issue_Details()
 
+    form.related_project.choices = ['<Select Project>'] + [(project.project_name) for project in Project.query.all()]
+    form.assigned_to.choices = ['<Select User>'] + [(user.username) for user in User.query.all()]
+
+    Issue_proj = Project.query.filter_by(project_id=form.related_project.data).first()
+    Issue_name = User.query.filter_by(user_id=form.assigned_to.data).first()
+
     if request.method == 'POST':
+
         if form2.validate_on_submit():
             each_issue.issue_summary=form.issue_summary.data
             each_issue.issue_description=form.issue_description.data
             each_issue.identified_by_person_id=form.identified_by.data.__repr__()
             each_issue.identified_date=form.identified_date.data
-            each_issue.related_project=form.related_project.data.__repr__()
-            each_issue.assigned_to=form.assigned_to.data.__repr__()
+            each_issue.related_project=form.related_project.data
+            each_issue.assigned_to=form.assigned_to.data
             each_issue.status=form.status.data
             each_issue.priority=form.priority.data
             each_issue.traget_resolution_date=form.target_resolution_date.data
@@ -329,14 +336,14 @@ def edit_issue_page(issue_id):
     form.issue_description.data=each_issue.issue_description
     form.identified_by.data = User.query.filter_by(username=each_issue.identified_by_person_id).first()
     form.identified_date.data=each_issue.identified_date
-    form.related_project.data=Project.query.filter_by(project_name=each_issue.related_project).first()
-    form.assigned_to.data=User.query.filter_by(username=each_issue.assigned_to).first()
+    form.related_project.data=each_issue.related_project
+    form.assigned_to.data=each_issue.assigned_to
     form.status.data=each_issue.status
     form.priority.data=each_issue.priority
     form.target_resolution_date.data=each_issue.traget_resolution_date
     form.progress_report.data=each_issue.progress
 
-    return render_template('issue-details-edit.html', form=form, form2=form2, issue_id=each_issue.id, each_issue=each_issue)
+    return render_template('issue-details-edit.html', form=form, form2=form2, issue_id=each_issue.id, each_issue=each_issue, Issue_name=Issue_name, Issue_proj=Issue_proj)
 
 
 @app.route('/issues/delete/<int:issue_id>', methods=['GET', 'DELETE'])
@@ -356,19 +363,21 @@ def delete_issue_page(issue_id):
         return render_template('issues.html', all_issues=all_issues, each_issue=each_issue)
 
 
-
 @app.route('/reports')
 def reports_page():
     """a route to return the projects reports on issues opened or closed"""
     return render_template('reports.html')
+
 
 @app.route('/issue-summary', methods=['GET', 'POST'])
 def issue_summary_page():
     """ """
     form4 = Issue_Summary()
     form4.related_project.choices = [(project.project_name) for project in Project.query.all()]
+
+    Issue_proj = Project.query.filter_by(project_name=form4.related_project.data).first()
     if request.method == 'POST':
         if form4.validate_on_submit():
-            Issue_proj = Issues.query.filter_by(id=form4.related_project.data).first()
-            return render_template('issue-summary-by-project.html', form4=form4, Issue_proj=Issue_proj)
+            print(Issue_proj)
+            return render_template('issue-summary-by-project.html', form4=form4)
     return render_template('issue-summary-by-project.html', form4=form4)
