@@ -6,7 +6,7 @@
 {% block content %}
 <div class="home-page-items">
     <div class="home-logo">
-        <p><a href="{{ url_for('home_page') }}">Home</a></p>
+        <a href="{{url_for("main.home_page")}}">Home</a>
     </div>
 
     <p> Use this application to track bugs as they arise for projects within your organization</p>
@@ -14,23 +14,23 @@
     <div class="home-icons">
         <div class="dashboard-icon">
             <i class="fa-solid fa-calendar-days fa-3x"></i>
-            <a href="{{url_for('dashboard_page')}}" class="icon">Dashboard</a>
+            <a href="{{url_for('main.dashboard_page')}}" class="icon">Dashboard</a>
         </div>
         <div class="dashboard-icon">
             <i class="fa-solid fa-diagram-project fa-3x"></i>
-            <a href="{{url_for('projects_page')}}" class="icon">Projects</a>
+            <a href="{{url_for('main.projects_page')}}" class="icon">Projects</a>
         </div>
         <div class="dashboard-icon">
             <i class="fa-solid fa-list-check fa-3x"></i>
-            <a href="{{url_for('issues_page')}}" class="icon">Issues</a>
+            <a href="{{url_for('main.issues_page')}}" class="icon">Issues</a>
         </div>
         <div class="dashboard-icon">
             <i class="fa-solid fa-file-shield fa-3x"></i>
-            <a href="{{url_for('reports_page')}}" class="icon">Reports</a>
+            <a href="{{url_for('main.reports_page')}}" class="icon">Reports</a>
         </div>
         <div class="dashboard-icon">
             <i class="fa-solid fa-users fa-3x"></i>
-            <a href="{{url_for('users_page')}}" class="icon">Users</a>
+            <a href="{{url_for('main.users_page')}}" class="icon">Users</a>
         </div>       
     </div>
 </div>

@@ -8,8 +8,8 @@
 
     <div class="project-logo">
         <p>
-            <a href="{{url_for('home_page')}}">Home</a> <span> > </span>
-            <a href="{{url_for('projects_page')}}">Projects</a>
+            <a href="{{url_for('main.home_page')}}">Home</a> <span> > </span>
+            <a href="{{url_for('main.projects_page')}}">Projects</a>
         </p>
     </div>
 
@@ -35,19 +35,19 @@
                 <option>14</option>
                 <option>15</option>
             </select> -->
-            <form method="post" action="{{url_for('projects_page')}}">
+            <form method="post" action="{{url_for('main.projects_page')}}">
                 {{ form.hidden_tag() }}
                 <i class="fa-solid fa-magnifying-glass"></i>
                 <input type="search" class="project-to-search" name="searched" placeholder="Search" aria-label="Search" >
                 <button class="search-submit" type="submit" name="searched">Go</button>
-                <a href="{{url_for('projects_page')}}"><button type="button" class="m1-2 mb-1 close" aria-label="Close">
+                <a href="{{url_for('main.projects_page')}}"><button type="button" class="m1-2 mb-1 close" aria-label="Close">
                     <span arai-hidden="true">&times;</span>
                 </button></a>
             </form>
             
         </div>
         <div class="add-projects">
-            <a href="{{url_for('project_details_page')}}"><button class="search-submit" type="submit" name="searched"> Add Project</button></a>
+            <a href="{{url_for('main.project_details_page')}}"><button class="search-submit" type="submit" name="searched"> Add Project</button></a>
         </div>
     </div>
     <div class="projects-table">
@@ -66,23 +66,23 @@
                 {% if searched %}
                     {% for items in searched_projects %}
                     <tr>
-                        <td><a href="{{url_for('edit_projects', project_id=items.project_id)}}"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                        <td><a href="{{url_for('main.edit_projects', project_id=items.project_id)}}"><i class="fa-solid fa-pen-to-square"></i></a></td>
                         <td>{{ items.project_name }}</td>
                         <td>{{ items.start_only_date }}</td>
                         <td>{{ items.only_date }}</td>
                         <td>{{ items.actual_date }}</td>
-                        <td><a method="DELETE" href="{{url_for('delete_project', project_id=items.project_id)}}"><i class="fa-solid fa-trash"></i></a></td>
+                        <td><a method="DELETE" href="{{url_for('main.delete_project', project_id=items.project_id)}}"><i class="fa-solid fa-trash"></i></a></td>
                       </tr>
                     {% endfor %}
                 {% else %}
                     {% for project in all_projects %}
                     <tr>
-                        <td><a href="{{url_for('edit_projects', project_id=project.project_id)}}"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                        <td><a href="{{url_for('main.edit_projects', project_id=project.project_id)}}"><i class="fa-solid fa-pen-to-square"></i></a></td>
                         <td>{{ project.project_name }}</td>
                         <td>{{ project.start_only_date }}</td>
                         <td>{{ project.only_date }}</td>
                         <td>{{ project.actual_date }}</td>
-                        <td><a method="DELETE" href="{{url_for('delete_project', project_id=project.project_id)}}"><i class="fa-solid fa-trash"></i></a></td>
+                        <td><a method="DELETE" href="{{url_for('main.delete_project', project_id=project.project_id)}}"><i class="fa-solid fa-trash"></i></a></td>
                     </tr>
                     {% endfor %}
                 {% endif %}

@@ -1,38 +1,33 @@
-{% extends 'base.html' %}
-{% block title %}
-    Reports Page
-{% endblock %}
-
-{% block content %}
+{% extends 'base.html' %} {% block title %} Reports Page {% endblock %} {% block
+content %}
 
 <div class="report">
-
-    <div class="report-logo">
-        <p>
-            <a href="{{url_for('home_page')}}">Home</a> <span> > </span>
-            <a href="{{url_for('reports_page')}}">Reports</a> <span> > </span>
-            <a href="{{url_for('issue_summary_page')}}">Issue Summary by Project</a>
-        </p>
-    </div>
-    <div class="project-name">
-        <form method="post">
-            {{ form4.hidden_tag() }}
-            <div class="expand-issues">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                {{ form4.related_project(id="issue_project") }}
-                <div class="buttons-to-create">
-                    <button type="reset" id="reset" name="reset">Cancel</button>
-                    {{ form4.go(type="submit", id="submit") }}
-                </div>
-            </div>
-        </form>
-        <div class="Summary">
-            <h6>Summary</h6>
-            
-            <p>First Issue Identified: </p>
-            
+  <div class="report-logo">
+    <p>
+      <a href="{{url_for('main.home_page')}}">Home</a> <span> > </span>
+      <a href="{{url_for('main.reports_page')}}">Reports</a> <span> > </span>
+      <a href="{{url_for('main.issue_summary_page')}}"
+        >Issue Summary by Project</a
+      >
+    </p>
+  </div>
+  <div class="project-name">
+    <form method="post">
+      {{ form4.hidden_tag() }}
+      <div class="expand-issues">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        {{ form4.related_project(id="issue_project") }}
+        <div class="buttons-to-create">
+          <button type="reset" id="reset" name="reset">Cancel</button>
+          {{ form4.go(type="submit", id="submit") }}
         </div>
+      </div>
+    </form>
+    <div class="Summary">
+      <h6>Summary</h6>
 
+      <p>First Issue Identified:</p>
     </div>
+  </div>
 </div>
 {% endblock %}

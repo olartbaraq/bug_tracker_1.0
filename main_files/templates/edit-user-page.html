@@ -1,7 +1,7 @@
 <style>
-/* * {box-sizing:border-box} */
+  /* * {box-sizing:border-box} */
 
-body{
+  body {
     width: 100vw;
     height: 100vh;
     overflow-y: scroll;
@@ -9,204 +9,237 @@ body{
     background: lightgrey;
     font-family: sans-serif;
     font-size: 14px;
-}
+  }
 
-.base-contain a {
+  .base-contain a {
     color: white;
-}
-.base-contain {
+  }
+  .base-contain {
     height: 150px;
     background-color: rgb(29, 28, 28);
     color: rgb(240, 236, 236);
-}
-.base-name {
+  }
+  .base-name {
     padding: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-right: 20px;
-}
-.home-sections {
+  }
+  .home-sections {
     display: flex;
     justify-content: flex-end;
     align-items: center;
     font-size: small;
     margin-right: 100px;
-}
+  }
 
-.user-information {
+  .user-information {
     margin: 20px;
     padding: auto;
-}
+  }
 
-.buttons-to-create {
+  .buttons-to-create {
     margin-top: 10px;
     margin-left: 100px;
-}
+  }
 
-.buttons-to-create button {
+  .buttons-to-create button {
     width: 80px;
     height: 30px;
     border: solid, 10px, lightcyan;
     background-color: rgb(29, 28, 28);
     color: rgb(240, 236, 236);
     border-radius: 10px;
-}
+  }
 
-.buttons-to-create #submit {
+  .buttons-to-create #submit {
     width: 80px;
     height: 30px;
     border: solid, 10px, lightcyan;
     background-color: rgb(29, 28, 28);
     color: rgb(240, 236, 236);
     border-radius: 10px;
-}
+  }
 
-.user-info-expand {
+  .user-info-expand {
     margin-left: 40px;
-}
+  }
 
-.expand-each {
+  .expand-each {
     display: flex;
     justify-content: space-between;
     width: 350px;
-}
+  }
 
-.expand-each p {
+  .expand-each p {
     width: 100px;
-}
+  }
 
-.expand-each-role {
+  .expand-each-role {
     display: flex;
     justify-content: space-between;
     width: 260px;
-}
+  }
 
-footer {
-  position: relative;
-  top: 700px;
-  text-align: center;
-}
+  footer {
+    position: relative;
+    top: 700px;
+    text-align: center;
+  }
 </style>
 
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script src="https://kit.fontawesome.com/0a332cb790.js" crossorigin="anonymous"></script>
-        <!-- CSS only -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-        
-        
-        <title> 
-            User Information
-        </title>
-    </head>
-    <body>
-        <header>
-            <div class="base-contain">
-                <div class="base-name">
-                    <h5> Bug Tracker 1.0</h5>
-                    <a href="{{url_for('logout_page')}}" class="logout"> Logout</a>
-                </div>
-                <div class="home-sections">
-                    <a href="{{url_for('dashboard_page')}}" class="dashboard">Dashboard <span>|</span></a>
-                    <a href="{{url_for('projects_page')}}" class="dashboard"> Projects <span>|</span></a>
-                    <a href="{{url_for('issues_page')}}" class="dashboard"> Issues <span>|</span></a>
-                    <a href="{{url_for('reports_page')}}" class="dashboard"> Reports <span>|</span></a>
-                    <a href="{{url_for('users_page')}}" class="dashboard"> Users</a>
-                </div>
-            </div>
-        </header>
-        <main>
-            <div class="message">
-                {% with messages = get_flashed_messages(with_categories=true) %}
-                {% if messages %}
-                {% for category, message in messages %}
-                <div class="alert alert-{{ category }}">
-                <button type="button" class="m1-2 mb-1 close" data-dismiss="alert" aria-label="Close">
-                    <span arai-hidden="true">&times;</span>
-                </button>
-                <p>{{ message }}</p>
-                </div>
-                {% endfor %}
-                {% endif %}
-                {% endwith %}
-            </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/0a332cb790.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- CSS only -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
 
-            <div class="user-information">
+    <title>User Information</title>
+  </head>
+  <body>
+    <header>
+      <div class="base-contain">
+        <div class="base-name">
+          <h5>Bug Tracker 1.0</h5>
+          <a href="{{url_for('main.logout_page')}}" class="logout"> Logout</a>
+        </div>
+        <div class="home-sections">
+          <a href="{{url_for('main.dashboard_page')}}" class="dashboard"
+            >Dashboard <span>|</span></a
+          >
+          <a href="{{url_for('main.projects_page')}}" class="dashboard">
+            Projects <span>|</span></a
+          >
+          <a href="{{url_for('main.issues_page')}}" class="dashboard">
+            Issues <span>|</span></a
+          >
+          <a href="{{url_for('main.reports_page')}}" class="dashboard">
+            Reports <span>|</span></a
+          >
+          <a href="{{url_for('main.users_page')}}" class="dashboard"> Users</a>
+        </div>
+      </div>
+    </header>
+    <main>
+      <div class="message">
+        {% with messages = get_flashed_messages(with_categories=true) %} {% if
+        messages %} {% for category, message in messages %}
+        <div class="alert alert-{{ category }}">
+          <button
+            type="button"
+            class="m1-2 mb-1 close"
+            data-dismiss="alert"
+            aria-label="Close"
+          >
+            <span arai-hidden="true">&times;</span>
+          </button>
+          <p>{{ message }}</p>
+        </div>
+        {% endfor %} {% endif %} {% endwith %}
+      </div>
 
-                <div class="user-info-logo">
-                    <p>
-                        <a href="{{url_for('home_page')}}">Home</a> <span> > </span>
-                        <a href="{{url_for('users_page')}}">Users</a> <span> > </span>
-                        <a href="{{url_for('edit_user', user_id=each_user.user_id) }}">Edit User Information</a>
-                    </p>
-                </div>
-            
-                <div class="user-info-items">
-                    <div class="heading">
-                        <h6>User Information</h6>
-                        
-                    </div>
-                    <div class="user-info-expand">
-                        {% for field, errors in form.errors.items() %}
-                        {{ ', '.join(errors) }}
-                        {% endfor %}
-                        <form method="POST"  class="information">
-                            {{ form.hidden_tag() }}
-                            <div class="expand-each">
-                                <p>*LastName</p>{{ form.lastname(class="lastname", type="text", id="lastname") }}
-                            </div>
-                            <br>
-                            <div class="expand-each">
-                                <p>*FirstName</p>{{ form.firstname(class="lastname", type="text", id="firstname") }}
-                            </div>
-                            <br>
-                            <div class="expand-each">
-                                <p>*UserName</p>{{ form.username(class="username", type="text", id="username") }}
-                            </div>
-                            <br>
-                            <div class="expand-each">
-                                <p>*Email Address</p>{{ form.email(type="email", id="email") }}
-                            </div>
-                            <br>
-                            <div class="expand-each">
-                                <p>*Phone Number</p>{{ form.phone(type="number", placeholder="Phone(only digits)", id="phone") }}
-                            </div>
-                            <br>
-                            <div class="expand-each-role">
-                                <p>*Role</p> {{ form2.user_roles }}
-                            </div>
-                            <div class="expand-each-role">
-                                <p>*Assigned Project</p> {{ form2.assigned_project }}
-                            
-                            </div>
-                            <div class="buttons-to-create">
-                                <button type="reset" id="reset" name="reset">Cancel</button>
-                                {{ form2.save(type="submit", id="submit") }}
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </main>
-        
-        <footer>
-            <p>
-                designed and directed by Akanbi Mubaraq Olatunde Copyright &copy; 2022
-            </p>
-        </footer>
+      <div class="user-information">
+        <div class="user-info-logo">
+          <p>
+            <a href="{{url_for('main.home_page')}}">Home</a> <span> > </span>
+            <a href="{{url_for('main.users_page')}}">Users</a> <span> > </span>
+            <a href="{{url_for('main.edit_user', user_id=each_user.user_id) }}"
+              >Edit User Information</a
+            >
+          </p>
+        </div>
 
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    </body>
+        <div class="user-info-items">
+          <div class="heading">
+            <h6>User Information</h6>
+          </div>
+          <div class="user-info-expand">
+            {% for field, errors in form.errors.items() %} {{ ', '.join(errors)
+            }} {% endfor %}
+            <form method="POST" class="information">
+              {{ form.hidden_tag() }}
+              <div class="expand-each">
+                <p>*LastName</p>
+                {{ form.lastname(class="lastname", type="text", id="lastname")
+                }}
+              </div>
+              <br />
+              <div class="expand-each">
+                <p>*FirstName</p>
+                {{ form.firstname(class="lastname", type="text", id="firstname")
+                }}
+              </div>
+              <br />
+              <div class="expand-each">
+                <p>*UserName</p>
+                {{ form.username(class="username", type="text", id="username")
+                }}
+              </div>
+              <br />
+              <div class="expand-each">
+                <p>*Email Address</p>
+                {{ form.email(type="email", id="email") }}
+              </div>
+              <br />
+              <div class="expand-each">
+                <p>*Phone Number</p>
+                {{ form.phone(type="number", placeholder="Phone(only digits)",
+                id="phone") }}
+              </div>
+              <br />
+              <div class="expand-each-role">
+                <p>*Role</p>
+                {{ form2.user_roles }}
+              </div>
+              <div class="expand-each-role">
+                <p>*Assigned Project</p>
+                {{ form2.assigned_project }}
+              </div>
+              <div class="buttons-to-create">
+                <button type="reset" id="reset" name="reset">Cancel</button>
+                {{ form2.save(type="submit", id="submit") }}
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <p>
+        designed and directed by Akanbi Mubaraq Olatunde Copyright &copy; 2022
+      </p>
+    </footer>
+
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>
-
-
-

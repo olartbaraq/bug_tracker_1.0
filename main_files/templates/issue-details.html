@@ -1,101 +1,102 @@
-{% extends 'base.html' %}
-{% block title %}
-    Issues-Details
-{% endblock %}
-
-{% block content %}
+{% extends 'base.html' %} {% block title %} Issues-Details {% endblock %} {%
+block content %}
 <div class="user-items issue-details">
-    <div class="user-logo issue-logo">
-        <p>
-            <a href="{{url_for('home_page')}}">Home</a> <span> > </span>
-            <a href="{{url_for('issues_page')}}">Issues</a> <span> > </span>
-            <a href="{{url_for('issue_info_page')}}">Issue Details</a>
-        </p>
+  <div class="user-logo issue-logo">
+    <p>
+      <a href="{{url_for('main.home_page')}}">Home</a> <span> > </span>
+      <a href="{{url_for('main.issues_page')}}">Issues</a> <span> > </span>
+      <a href="{{url_for('main.issue_info_page')}}">Issue Details</a>
+    </p>
+  </div>
+  <div class="issue-identification">
+    <div class="issue-title">
+      <h6>Issue Identification</h6>
     </div>
-    <div class="issue-identification">
-        <div class="issue-title">
-            <h6>Issue Identification</h6>
+
+    <div class="issue-details-expand">
+      <form method="POST" class="information">
+        {{ form.hidden_tag() }}
+        <div class="expand-issue">
+          *Issue Summary{{ form.issue_summary(type="text", id="issue_summary",
+          maxlength="300") }}
         </div>
+        <br />
+        <div class="expand-issue">
+          *Issue Description{{ form.issue_description(type="text",
+          id="issue_summary", maxlength="2000") }}
+        </div>
+        <br />
+        <div class="expand-issues">
+          *Related Project{{ form.related_project(id="issue_project") }}
+        </div>
+        <br />
+        <div class="expand-issues">
+          *Identified By{{ form.identified_by(id="issue_project") }}
+        </div>
+        <br />
+        <div class="expand-issues">
+          *Identified Date{{ form.identified_date(id="issue_project") }}
+        </div>
+        <br />
+        <div class="issue-title">
+          <h6>Progress</h6>
+        </div>
+        <div class="expand-issues">
+          *Assigned To{{ form.assigned_to(id="issue_person") }}
+        </div>
+        <br />
+        <div class="expand-issues">*Status{{ form.status(id="status") }}</div>
+        <br />
+        <div class="expand-issues">
+          *Priority{{ form.priority(id="status") }}
+        </div>
+        <br />
+        <div class="expand-issued">
+          *Target Resolution date{{
+          form.target_resolution_date(id="issue_project") }}
+        </div>
+        <br />
+        <div class="expand-issue">
+          *Progress{{ form.progress_report (type="text", id="issue_summary",
+          maxlength="300")}}
+        </div>
+        <br />
+        <div class="buttons-to-create">
+          <button type="reset" id="reset" name="reset">Cancel</button>
+          {{ form.create(type="submit", id="submit") }}
+        </div>
+        <br />
+      </form>
 
-        <div class="issue-details-expand">
-            <form method="POST"  class="information">
-                {{ form.hidden_tag() }}
-                <div class="expand-issue">
-                    *Issue Summary{{ form.issue_summary(type="text", id="issue_summary", maxlength="300") }}
-                </div>
-                <br>
-                <div class="expand-issue">
-                    *Issue Description{{ form.issue_description(type="text", id="issue_summary", maxlength="2000") }}
-                </div>
-                <br>
-                <div class="expand-issues">
-                    *Related Project{{ form.related_project(id="issue_project") }}
-                </div>
-                <br>
-                <div class="expand-issues">
-                    *Identified By{{ form.identified_by(id="issue_project") }}
-                </div>
-                <br>
-                <div class="expand-issues">
-                    *Identified Date{{ form.identified_date(id="issue_project") }}
-                </div>
-                <br>
-                <div class="issue-title">
-                    <h6>Progress</h6>
-                </div>
-                <div class="expand-issues">
-                    *Assigned To{{ form.assigned_to(id="issue_person") }}
-                </div>
-                <br>
-                <div class="expand-issues">
-                    *Status{{ form.status(id="status") }}
-                </div>
-                <br>
-                <div class="expand-issues">
-                    *Priority{{ form.priority(id="status") }}
-                </div>
-                <br>
-                <div class="expand-issued">
-                    *Target Resolution date{{ form.target_resolution_date(id="issue_project") }}
-                </div>
-                <br>
-                <div class="expand-issue">
-                    *Progress{{ form.progress_report (type="text", id="issue_summary", maxlength="300")}}
-                </div>
-                <br>
-                <div class="buttons-to-create">
-                    <button type="reset" id="reset" name="reset">Cancel</button>
-                    {{ form.create(type="submit", id="submit") }}
-                </div>
-                <br>
-            </form>
+      <script>
+        let project_select = document.getElementById("issue_project");
+        let user_select = document.getElementById("issue_person");
 
-            <script>
-                let project_select = document.getElementById('issue_project');
-                let user_select = document.getElementById('issue_person');
+        project_select.onchange = function () {
+          related_project = project_select.value;
+          // alert(related_project);
 
-
-                project_select.onchange = function() {
-                    related_project = (project_select.value);
-                    // alert(related_project);
-
-                    fetch('/issues/' + related_project).then(function(response) {
-                        response.json().then(function(data) {
-                            let optionHTML = '';
-                            for(let user of data.allUsers) {
-                                optionHTML += '<option value="' + user.user_id + '">' + user.username + '</option>';
-                            }
-                            if(related_project) {
-                                user_select.innerHTML = optionHTML;
-                            }else {
-                                user_select.innerHTML = user_select;
-                            }
-                            
-                        });
-                    });
-                }
-            </script>
-        </div>  
+          fetch("/issues/" + related_project).then(function (response) {
+            response.json().then(function (data) {
+              let optionHTML = "";
+              for (let user of data.allUsers) {
+                optionHTML +=
+                  '<option value="' +
+                  user.user_id +
+                  '">' +
+                  user.username +
+                  "</option>";
+              }
+              if (related_project) {
+                user_select.innerHTML = optionHTML;
+              } else {
+                user_select.innerHTML = user_select;
+              }
+            });
+          });
+        };
+      </script>
     </div>
+  </div>
 </div>
 {% endblock %}

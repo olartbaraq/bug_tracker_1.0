@@ -1,70 +1,67 @@
-{% extends 'base.html' %}
-{% block title %}
-    User Information
-{% endblock %}
-
-{% block content %}
+{% extends 'base.html' %} {% block title %} User Information {% endblock %} {%
+block content %}
 <div class="user-information">
+  <div class="user-info-logo">
+    <p>
+      <a href="{{url_for('main.home_page')}}">Home</a> <span> > </span>
+      <a href="{{url_for('main.users_page')}}">Users</a> <span> > </span>
+      <a href="{{url_for('main.user_info_page')}}">User Information</a>
+    </p>
+  </div>
 
-    <div class="user-info-logo">
-        <p>
-            <a href="{{url_for('home_page')}}">Home</a> <span> > </span>
-            <a href="{{url_for('users_page')}}">Users</a> <span> > </span>
-            <a href="{{url_for('user_info_page')}}">User Information</a>
-        </p>
+  <div class="user-info-items">
+    <div class="heading">
+      <h6>User Information</h6>
     </div>
-
-    <div class="user-info-items">
-        <div class="heading">
-            <h6>User Information</h6>
-            
-        </div>
-        <div class="user-info-expand">
-            <!-- {% for field, errors in form.errors.items() %}
+    <div class="user-info-expand">
+      <!-- {% for field, errors in form.errors.items() %}
             {{ ', '.join(errors) }}
             {% endfor %} -->
-            <form method="POST"  class="information">
-                {{ form.hidden_tag() }}
-                <div class="expand-each">
-                    <p>*LastName</p>{{ form.lastname(class="lastname", type="text", id="lastname") }}
-                </div>
-                <br>
-                <div class="expand-each">
-                    <p>*FirstName</p>{{ form.firstname(class="lastname", type="text", id="firstname") }}
-                </div>
-                <br>
-                <div class="expand-each">
-                    <p>*UserName</p>{{ form.username(class="username", type="text", id="username") }}
-                </div>
-                <br>
-                <div class="expand-each">
-                    <p>*Email Address</p>{{ form.email(type="email", id="email") }}
-                </div>
-                <br>
-                <div class="expand-each">
-                    <p>*Phone Number</p>{{ form.phone(type="number", placeholder="Phone(only digits)", id="phone") }}
-                </div>
-                <br>
-                <div class="expand-each-role">
-                    <p>*Role</p> {{ form.user_roles }}
-                </div>
-                <div class="expand-each-role">
-                    <p>*Assigned Project</p> {{ form.assigned_project }}
-                   
-                </div>
-                <div class="buttons-to-create">
-                    <button type="reset" id="reset" name="reset">Cancel</button>
-                    {{ form.create(type="submit", id="submit") }}
-                </div>
-            </form>
+      <form method="POST" class="information">
+        {{ form.hidden_tag() }}
+        <div class="expand-each">
+          <p>*LastName</p>
+          {{ form.lastname(class="lastname", type="text", id="lastname") }}
         </div>
+        <br />
+        <div class="expand-each">
+          <p>*FirstName</p>
+          {{ form.firstname(class="lastname", type="text", id="firstname") }}
+        </div>
+        <br />
+        <div class="expand-each">
+          <p>*UserName</p>
+          {{ form.username(class="username", type="text", id="username") }}
+        </div>
+        <br />
+        <div class="expand-each">
+          <p>*Email Address</p>
+          {{ form.email(type="email", id="email") }}
+        </div>
+        <br />
+        <div class="expand-each">
+          <p>*Phone Number</p>
+          {{ form.phone(type="number", placeholder="Phone(only digits)",
+          id="phone") }}
+        </div>
+        <br />
+        <div class="expand-each-role">
+          <p>*Role</p>
+          {{ form.user_roles }}
+        </div>
+        <div class="expand-each-role">
+          <p>*Assigned Project</p>
+          {{ form.assigned_project }}
+        </div>
+        <div class="buttons-to-create">
+          <button type="reset" id="reset" name="reset">Cancel</button>
+          {{ form.create(type="submit", id="submit") }}
+        </div>
+      </form>
     </div>
+  </div>
 </div>
 {% endblock %}
-
-
-
-
 
 <!-- {{ form.assigned_project}}
                         <ul>
@@ -73,7 +70,7 @@
                             {% endfor %}
                         </ul> -->
 
-                        <!-- <span>
+<!-- <span>
                             <label for="CTO">
                                 <input type="radio" id="CTO" name="role_taken" value="CTO" required>CTO
                             </label>

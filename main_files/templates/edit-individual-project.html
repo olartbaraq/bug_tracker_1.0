@@ -1,99 +1,104 @@
-{% extends 'base.html' %}
-{% block title %}
-   edit projects details
-{% endblock %}
-
+{% extends 'base.html' %} {% block title %} edit projects details {% endblock %}
 {% block content %}
 
 <style>
-    body {
-  width: 100vw;
-  height: 100vh;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  background: lightgrey;
-  font-family: sans-serif;
-  font-size: 14px;
-}
+  body {
+    width: 100vw;
+    height: 100vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    background: lightgrey;
+    font-family: sans-serif;
+    font-size: 14px;
+  }
 
-.base-contain a {
-  color: white;
-}
+  .base-contain a {
+    color: white;
+  }
 
-.base-contain {
-  height: 150px;
-  background-color: rgb(29, 28, 28);
-  color: rgb(240, 236, 236);
-}
+  .base-contain {
+    height: 150px;
+    background-color: rgb(29, 28, 28);
+    color: rgb(240, 236, 236);
+  }
 
-.base-name {
-  padding: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-right: 20px;
-}
+  .base-name {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 20px;
+  }
 
-.home-sections {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  font-size: small;
-  margin-right: 100px;
-}
+  .home-sections {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: small;
+    margin-right: 100px;
+  }
 
-footer {
-  position: relative;
-  top: 700px;
-  text-align: center;
-}
+  footer {
+    position: relative;
+    top: 700px;
+    text-align: center;
+  }
 </style>
 
 <div class="edit-details-details">
-    <div class="edit-details-logos">
+  <div class="edit-details-logos">
+    <p>
+      <a href="{{url_for('main.home_page')}}">Home</a> <span> > </span>
+      <a href="{{url_for('main.projects_page')}}">Projects</a> <span> > </span>
+      <a
+        href="{{url_for('main.edit_projects', project_id=indy_project.project_id)}}"
+        >Projects Details</a
+      >
+    </p>
+  </div>
+  <div class="edit-details-items">
+    <div class="edit-titles">
+      <h6>Project Details</h6>
+    </div>
+    <div class="edit-details-expands">
+      <form method="POST" class="informations">
+        {{ form.hidden_tag() }}
+        <div class="expand-eachs">
+          <p>*Project Name</p>
+          {{ form.project_name(class="pname", type="text", id="project_name") }}
+        </div>
+        <br />
+        <div class="expand-eachs">
+          <p>*Start Date</p>
+          {{ form.start_date(class="sdate", type="date", id="start_date") }}
+        </div>
+        <br />
+        <div class="expand-eachs">
+          <p>*Target End Date</p>
+          {{ form.target_end_date(class="sdate", type="date", id="Target-date")
+          }}
+        </div>
+        <br />
+        <div class="expand-eachs">
+          <p>*Actual End Date</p>
+          {{ form2.actual_end_date(class="sdate", type="date", id="Actual-date")
+          }}
+        </div>
+        <div class="buttons-to-create">
+          {{ form2.Apply_Changes(type="submit", id="submit") }}
+        </div>
+      </form>
+    </div>
+    <div class="audit-information">
+      <div class="created_on">
+        <p>CREATED ON <span> - </span> {{ indy_project.create_date }}</p>
+        <p>CREATED BY <span> - </span> {{ indy_project.record_created_by }}</p>
+        <p>MODIFIED ON <span> - </span> {{ indy_project.modify_date }}</p>
         <p>
-            <a href="{{url_for('home_page')}}">Home</a> <span> > </span>
-            <a href="{{url_for('projects_page')}}">Projects</a> <span> > </span>
-            <a href="{{url_for('edit_projects', project_id=indy_project.project_id)}}">Projects Details</a>
+          MODIFIED BY <span> - </span> {{ indy_project.record_modified_by }}
         </p>
+      </div>
     </div>
-    <div class="edit-details-items">
-        <div class="edit-titles">
-            <h6>Project Details</h6>
-            
-        </div>
-        <div class="edit-details-expands">
-            <form method="POST" class="informations">
-                {{ form.hidden_tag() }}
-                <div class="expand-eachs">
-                    <p>*Project Name</p>{{ form.project_name(class="pname", type="text", id="project_name") }}
-                </div>
-                <br>
-                <div class="expand-eachs">
-                    <p>*Start Date</p>{{ form.start_date(class="sdate", type="date", id="start_date") }}
-                </div>
-                <br>
-                <div class="expand-eachs">
-                    <p>*Target End Date</p>{{ form.target_end_date(class="sdate", type="date", id="Target-date") }}
-                </div>
-                <br>
-                <div class="expand-eachs">
-                    <p>*Actual End Date</p>{{ form2.actual_end_date(class="sdate", type="date", id="Actual-date") }}
-                </div>
-                <div class="buttons-to-create">
-                    {{ form2.Apply_Changes(type="submit", id="submit") }}
-                </div>
-            </form>
-        </div>
-        <div class='audit-information'>
-                <div class='created_on'>
-                    <p> CREATED ON <span> - </span> {{ indy_project.create_date }}</p>
-                    <p> CREATED BY <span> - </span> {{ indy_project.record_created_by }}</p>
-                    <p> MODIFIED ON <span> - </span> {{ indy_project.modify_date }}</p>
-                    <p> MODIFIED BY <span> - </span> {{ indy_project.record_modified_by }}</p>
-                </div>
-        </div>
-
-    </div>
+  </div>
 </div>
 {% endblock %}
