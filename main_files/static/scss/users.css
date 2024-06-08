@@ -13,7 +13,7 @@
 .add-users button {
   width: 80px;
   height: 30px;
-  border: solid, 10px, lightcyan;
+  border: solid, 1px, lightcyan;
   background-color: rgb(29, 28, 28);
   color: rgb(240, 236, 236);
   border-radius: 10px;

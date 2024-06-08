@@ -1,1 +1,1 @@
-{"version":3,"sourceRoot":"","sources":["issue-summary-by-project.scss"],"names":[],"mappings":"AAAA;EACI;EACA;EACA","file":"issue-summary-by-project.css"}
+{"version":3,"sources":["issue-summary-by-project.scss","issue-summary-by-project.css"],"names":[],"mappings":"AAAA;EACI,aAAA;EACA,YAAA;EACA,8BAAA;ACCJ","file":"issue-summary-by-project.css"}

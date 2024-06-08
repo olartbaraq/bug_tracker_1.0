@@ -20,8 +20,8 @@
 
 .search-projects {
   width: 300px;
-  height: 50px;
-  border: solid, 10px, lightcyan;
+  height: 40px;
+  border: solid, 1px, lightcyan;
   background-color: rgb(29, 28, 28);
   color: rgb(240, 236, 236);
   border-radius: 10px;
@@ -33,7 +33,7 @@
 .add-projects button {
   width: 100px;
   height: 30px;
-  border: solid, 10px, lightcyan;
+  border: solid, 1px, lightcyan;
   background-color: rgb(29, 28, 28);
   color: rgb(240, 236, 236);
   border-radius: 10px;
@@ -44,7 +44,9 @@
   padding: 10px;
 }
 
-.projects-table table, thead, tr {
+.projects-table table,
+thead,
+tr {
   width: 90%;
   border: 1px solid black;
   border-radius: 5px;
