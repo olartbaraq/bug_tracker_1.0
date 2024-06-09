@@ -321,9 +321,10 @@ def issue_info_page():
 
     if request.method == "POST":
         Issue_proj = Project.query.filter_by(
-            project_id=form.related_project.data
+            project_name=form.related_project.data
         ).first()
-        Issue_name = User.query.filter_by(user_id=form.assigned_to.data).first()
+        Issue_name = User.query.filter_by(username=form.assigned_to.data).first()
+        print(Issue_proj, Issue_name)
 
         if form.validate_on_submit():
             issue_to_create = Issues(
@@ -353,10 +354,10 @@ def issue(project):
     allUsers = User.query.filter_by(assigned_project=project).all()
     userArray = []
     for user in allUsers:
-        userObj = {}
+        userObj: dict[str, int | str | list] = {}
         userObj["user_id"] = user.user_id
         userObj["username"] = user.username
-        userArray.bpend(userObj)
+        userArray.append(userObj)
     return jsonify({"allUsers": userArray})
 
 
@@ -375,8 +376,8 @@ def edit_issue_page(issue_id):
         (user.username) for user in User.query.all()
     ]
 
-    Issue_proj = Project.query.filter_by(project_id=form.related_project.data).first()
-    Issue_name = User.query.filter_by(user_id=form.assigned_to.data).first()
+    Issue_proj = Project.query.filter_by(project_name=form.related_project.data).first()
+    Issue_name = User.query.filter_by(username=form.assigned_to.data).first()
 
     if request.method == "POST":
 
